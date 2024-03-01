@@ -107,6 +107,24 @@ p-fragment.landing {
   flex-wrap: nowrap;
 }
 
+.long-list {
+  font-size: 3vh;
+
+  li {
+    margin-bottom: 3vh;
+  }
+}
+
+.invert {
+  &[aria-hidden="true"] {
+    opacity: 1;
+  }
+
+  &[aria-hidden="false"] {
+    opacity: 0;
+  }
+}
+
 .cover {
 
   h1 {
@@ -149,6 +167,12 @@ p-fragment.landing {
 
   span {
     font-size: 2vw;
+  }
+}
+
+.my-list {
+  h5 {
+    margin-bottom: 0;
   }
 }
 

@@ -43,6 +43,7 @@ ul {
 pre[class*="language-"] {
   font-size: 50%;
 }
+
 pre.big[class*="language-"] {
   font-size: 75%;
   padding: .5em .6667em;
@@ -57,6 +58,7 @@ h6 {
   &:first-child {
     margin-top: 0;
   }
+
   &:last-child {
     margin-bottom: 0;
   }

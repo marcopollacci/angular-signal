@@ -20,3 +20,66 @@
     https://docs.solidjs.com/concepts/signals
   </p-note>
 </p-slide>
+<p-slide class="two-columns-flex-start">
+  <p-note class="my-presentation my-list">
+    <h5 class="text-cover">Signal</h5>
+    <ul class="long-list">
+      <li>📌 Un signal contiene sempre un valore</li>
+      <li>📌 Al suo variare, chiunque lo utilizzi è in grado di accedere al nuovo valore</li>
+      <li>📌 La reattività di signal è sincrona ed il suo valore viene propagato istantaneamente</li>
+      <li>📌 E’ possibile “iscriversi” e reagire tramite consumer, come ad esempio <b>effect</b></li>
+      <li>📌 Per poter usare effect al di fuori del costruttore è necessario l’injector tra le sue opzioni</li>
+    </ul>
+
+  </p-note>
+  <img alt="qr" src="img/export_1.png" style="padding-top: 5vh" />
+</p-slide>
+<p-slide class="two-columns-flex-start">
+  <p-note class="my-presentation my-list">
+    <h5 class="text-cover">Signal</h5>
+    <p-fragment>
+      <ul class="long-list" style="margin-bottom: 1vh">
+        <li>📌 Ogni singolo signal è chiamato “producer”</li>
+        <li>📌 Sia i template sia le funzioni che “leggono” i signal (es: <u>computed</u> ed <u>effect</u>) sono chiamati
+          <b>“consumer”</b></li>
+        <li>📌 Quando questo accade, si crea una “connessione” tra producer <-> consumer che a livello logico è simile a
+          quella di una subscription negli observable
+        </li>
+        <li>📌 La differenza è: al variare del valore, i producer inviano una notifica di aggiornamento e non
+          direttamente
+          il nuovo valore, che andrà così esplicitamente letto
+        </li>
+        <li>📌 Il consumer potrà decidere di leggere il valore oppure non farlo mai.</li>
+        <li>📌 Le funzioni computed, producendo a loro volta un signal, sono contemporaneamente producer and consumer
+        </li>
+        <li>📌 I consumer sono memoized by default.</li>
+      </ul>
+    </p-fragment>
+  </p-note>
+  <img alt="qr" src="img/export_1.png" style="padding-top: 5vh" />
+</p-slide>
+<p-slide class="two-columns-flex-start" style="flex-direction: row;flex-wrap: nowrap;">
+  <p-note class="my-presentation my-list">
+    <h5 class="text-cover">Signal</h5>
+    <ul class="long-list">
+      <li>📌 E’ possibile creare signal definiti “computed” che dipendono dal valore di altri signal.</li>
+      <li>📌 Le dipendenze sono dinamiche e possono essere incluse in statement condizionali</li>
+      <li>📌 Sono memoized e lazy evaluated</li>
+      <li>📌 L’intera computazione viene eseguita unicamente al variare dei valori dei suoi consumer e solo se
+        esplicitamente “letti”
+      </li>
+      <li>📌 <b>Sono read only</b></li>
+    </ul>
+
+  </p-note>
+  <img alt="qr" src="img/export_2.png" style="padding-top: 0;transform: scale(0.95);" />
+  <p-fragment class="invert"
+              style="position: absolute;right: 1em;width: 9.5em;height: 1em;background: #FFF;top: 8.7em;"></p-fragment>
+  <p-fragment class="invert"
+              style="position: absolute;right: 1.5em;width: 9.5em;height: 1em;background: #FFF;top: 9.7em;"></p-fragment>
+  <p-fragment class="invert"
+              style="position: absolute;right: 1em;width: 9.5em;height: 2em;background: #FFF;top: 10.7em;"></p-fragment>
+</p-slide>
+<p-slide>
+  aaaa
+</p-slide>
