@@ -4,3 +4,53 @@
 <p-slide class="cover">
   <h1>Todo List</h1>
 </p-slide>
+<p-slide>
+  <p-note class="two-columns" style="align-items: center;">
+    <div><img alt="code_05" src="img/export_5.png" style="height: 100vh; transform: scale(0.8)" /></div>
+    <div class="two-columns" style="flex-direction: column">
+      <img alt="code_06" src="img/export_6.png"
+           style="width: fit-content;height: 50vh;max-width: -webkit-fill-available;" />
+      <p-note class="long-list" style="width: fit-content;height: 10vh; margin-top: 1em; text-align: center">
+        Essendo l’emissione di signal sincrona, la nostra lista è istantaneamente aggiornata ad ogni aggiunta di un task
+        tramite il bottone dedicato, evitandoci così di usare la pipe async o altri metodi di sottoscrizione
+      </p-note>
+    </div>
+  </p-note>
+</p-slide>
+<p-slide class="cover">
+  <h1>In sinergia con gli Observable</h1>
+</p-slide>
+<p-slide>
+  <p-note class="two-columns" style="align-items: center;">
+    <div><img alt="code_07" src="img/export_7.png" style="height: 100vh; transform: scale(0.8)" /></div>
+    <div class="two-columns" style="flex-direction: column">
+      <p-note class="long-list center" style="width: fit-content;padding-top: 3em;padding-bottom: 1em">
+        In questo esempio vediamo come usare in perfetta sinergia observable e signal insieme.
+        Gli observable rimangono la scelta migliore per operazione asincrone. I signal risultano essere in questo
+        esempio, un perfetto sostituto dei behaviour subject per condividere lo stato dell’applicazione tramite service
+        (e non solo).
+      </p-note>
+      <p-fragment style="text-align: center;width: auto;">
+        <img alt="know_observable" src="img/know_observable.png" />
+      </p-fragment>
+
+      <p-fragment class="long-list infoComputed" style="position: absolute">
+        La scelta di utilizzare computed è per evitare che venga modificato il valore dall’esterno del service
+      </p-fragment>
+      <p-fragment style="position: absolute;top: 7.4em;right: 4em;">↩</p-fragment>
+    </div>
+  </p-note>
+</p-slide>
+
+
+<style>
+  .infoComputed {
+    position: absolute;
+    border: 2px solid;
+    text-align: center;
+    font-style: italic;
+    top: 18em;
+    right: 6em;
+    background: #FFF;
+  }
+</style>

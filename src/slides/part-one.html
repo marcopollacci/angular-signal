@@ -37,16 +37,15 @@
 <p-slide class="two-columns-flex-start">
   <p-note class="my-presentation my-list">
     <h5 class="text-cover">Signal</h5>
-    <ul class="long-list" style="margin-bottom: 1vh">
+    <ul class="long-list" style="margin-bottom: 0.5vh">
       <li>📌 Ogni singolo signal è chiamato “producer”</li>
       <li>📌 Sia i template sia le funzioni che “leggono” i signal (es: <u>computed</u> ed <u>effect</u>) sono chiamati
         <b>“consumer”</b></li>
-      <li>📌 Quando questo accade, si crea una “connessione” tra producer <-> consumer che a livello logico è simile a
-        quella di una subscription negli observable
+      <li>📌 Quando questo accade, si crea una “connessione” tra producer <-> consumer simile alla subscription negli
+        observable
       </li>
-      <li>📌 La differenza è: al variare del valore, i producer inviano una notifica di aggiornamento e non
-        direttamente
-        il nuovo valore, che andrà così esplicitamente letto
+      <li>📌 I producer inviano una notifica di aggiornamento e non direttamente il nuovo valore, che andrà così
+        esplicitamente letto
       </li>
       <li>📌 Il consumer potrà decidere di leggere il valore oppure non farlo mai.</li>
       <li>📌 Le funzioni computed, producendo a loro volta un signal, sono contemporaneamente producer and consumer
