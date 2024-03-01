@@ -8,6 +8,14 @@
   font-family: Graphik Regular, system-ui, sans-serif;
 }
 
+:fullscreen {
+  .presentation-toolbar,
+  .presentation-nav,
+  .presentation-progress {
+    display: none;
+  }
+}
+
 body {
   margin: 0;
 }
@@ -15,6 +23,7 @@ body {
 em {
   color: var(--brand-color);
 }
+
 .gdgLogo {
   position: absolute;
   z-index: 100;

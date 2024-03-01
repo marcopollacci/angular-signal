@@ -1,7 +1,7 @@
 {
-  "name": "css-unclassed-style-talk",
+  "name": "angular-signal",
   "version": "0.1.0",
-  "description": "Without class but with style",
+  "description": "Slides for a talk about signal integration in Angular.",
   "type": "module",
   "scripts": {
     "build": "node build.js",
@@ -11,11 +11,13 @@
   },
   "keywords": [
     "presentation",
-    "frontend"
+    "frontend",
+    "angular",
+    "signal"
   ],
   "author": {
-    "name": "Massimo Artizzu",
-    "email": "maxart.x@gmail.com"
+    "name": "Marco Pollacci",
+    "email": "pollacci@gmail.com"
   },
   "license": "MIT",
   "dependencies": {
