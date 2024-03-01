@@ -6,7 +6,7 @@
   <title>Angular Signal</title>
   <base href=".." />
   <link href="favicon.svg" rel="shortcut icon" type="image/svg+xml" />
-  <link href="vendor/prismjs/themes/prism.css" rel="stylesheet" />
+  <link href="css/prism-one-light.css" rel="stylesheet" />
   <link href="css/main.css" rel="stylesheet" />
   <link href="css/print.css" media="print" rel="stylesheet" />
   <link href="css/presentation.css" rel="stylesheet" />
@@ -69,16 +69,15 @@
 <p-slide class="two-columns-flex-start">
   <p-note class="my-presentation my-list">
     <h5 class="text-cover">Signal</h5>
-    <ul class="long-list" style="margin-bottom: 1vh">
+    <ul class="long-list" style="margin-bottom: 0.5vh">
       <li>📌 Ogni singolo signal è chiamato “producer”</li>
       <li>📌 Sia i template sia le funzioni che “leggono” i signal (es: <u>computed</u> ed <u>effect</u>) sono chiamati
         <b>“consumer”</b></li>
-      <li>📌 Quando questo accade, si crea una “connessione” tra producer <-> consumer che a livello logico è simile a
-        quella di una subscription negli observable
+      <li>📌 Quando questo accade, si crea una “connessione” tra producer <-> consumer simile alla subscription negli
+        observable
       </li>
-      <li>📌 La differenza è: al variare del valore, i producer inviano una notifica di aggiornamento e non
-        direttamente
-        il nuovo valore, che andrà così esplicitamente letto
+      <li>📌 I producer inviano una notifica di aggiornamento e non direttamente il nuovo valore, che andrà così
+        esplicitamente letto
       </li>
       <li>📌 Il consumer potrà decidere di leggere il valore oppure non farlo mai.</li>
       <li>📌 Le funzioni computed, producendo a loro volta un signal, sono contemporaneamente producer and consumer
@@ -170,7 +169,153 @@
 </p-slide>
 <p-slide class="cover">
   <h1>Todo List</h1>
-</p-slide><!--/slide:part-two-->
+</p-slide>
+<p-slide>
+  <p-note class="two-columns" style="align-items: center;">
+    <div><img alt="code_05" src="img/export_5.png" style="height: 100vh; transform: scale(0.8)" /></div>
+    <div class="two-columns" style="flex-direction: column">
+      <img alt="code_06" src="img/export_6.png"
+           style="width: fit-content;height: 50vh;max-width: -webkit-fill-available;" />
+      <p-note class="long-list" style="width: fit-content;height: 10vh; margin-top: 1em; text-align: center">
+        Essendo l’emissione di signal sincrona, la nostra lista è istantaneamente aggiornata ad ogni aggiunta di un task
+        tramite il bottone dedicato, evitandoci così di usare la pipe async o altri metodi di sottoscrizione
+      </p-note>
+    </div>
+  </p-note>
+</p-slide>
+<p-slide class="cover">
+  <h1>In sinergia con gli Observable</h1>
+</p-slide>
+<p-slide>
+  <p-note class="two-columns" style="align-items: center;">
+    <div><img alt="code_07" src="img/export_7.png" style="height: 100vh; transform: scale(0.8)" /></div>
+    <div class="two-columns" style="flex-direction: column">
+      <p-note class="long-list center" style="width: fit-content;padding-top: 3em;padding-bottom: 1em">
+        In questo esempio vediamo come usare in perfetta sinergia observable e signal insieme.
+        Gli observable rimangono la scelta migliore per operazione asincrone. I signal risultano essere in questo
+        esempio, un perfetto sostituto dei behaviour subject per condividere lo stato dell’applicazione tramite service
+        (e non solo).
+      </p-note>
+      <p-fragment style="text-align: center;width: auto;">
+        <img alt="know_observable" src="img/know_observable.png" />
+      </p-fragment>
+
+      <p-fragment class="long-list infoComputed" style="position: absolute">
+        La scelta di utilizzare computed è per evitare che venga modificato il valore dall’esterno del service
+      </p-fragment>
+      <p-fragment style="position: absolute;top: 7.4em;right: 4em;">↩</p-fragment>
+    </div>
+  </p-note>
+</p-slide>
+
+
+<style>
+  .infoComputed {
+    position: absolute;
+    border: 2px solid;
+    text-align: center;
+    font-style: italic;
+    top: 18em;
+    right: 6em;
+    background: #FFF;
+  }
+</style><!--/slide:part-two-->
+  <!--slide:part-three--><p-slide class="cover-subSection">
+  <h1>Ultime novità</h1>
+</p-slide>
+<p-slide class="two-columns-flex-start" style="flex-direction: row;align-items: center;">
+  <p-note class="my-presentation my-list">
+    <h5 class="text-cover">Signal Inputs</h5>
+    <ul class="long-list">
+      <li>📌 Modalità di gestione della logica di change input molto più facile</li>
+      <li>📌 Integrazione più efficace con la onPush strategy</li>
+      <li>📌 Effect sostituisce ngOnChanges</li>
+      <li>📌 Nessuna breaking change per i componenti padre (allo stato attuale della preview)</li>
+      <li>📌 E’ possibile definire un nome alternativo attraverso la proprietà alias di input</li>
+    </ul>
+
+  </p-note>
+  <p-note style="font-size: 4vh;">
+    <pre class="self-center language-javascript" style="border: 1px solid #101099"> <code> export class InputComponent {
+      firstName = input&lt;string>();
+      // required inputs
+      lastName = input.required&lt;string>();
+  } </code>
+      <p-fragment><code class="self-center language-html">
+  &lt;app-input lastName="Doe">&lt;/app-input> </code> </p-fragment> </pre>
+  </p-note>
+</p-slide>
+<p-slide class="two-columns-flex-start" style="flex-direction: row;align-items: center;">
+  <p-note class="my-presentation my-list">
+    <ul class="long-list">
+      <li>E’ inoltre possibile effettuare operazioni di trasformazione alla ricezione dell’input tramite la proprietà
+        transform, sia mantenendo il tipo di output che cambiandolo completamente
+      </li>
+    </ul>
+
+  </p-note>
+  <p-note style="font-size: 4vh;">
+    <pre class="self-center language-javascript" style="border: 1px solid #101099"><code>export class InputComponent {
+  firstName = input&lt;number, string>(0, {
+  </code> <p-fragment><code>alias: 'first',
+  </code></p-fragment> <p-fragment><code>transform: (value) => value.length,
+ </code></p-fragment> <code>});
+}
+  </code><p-fragment><code class="self-center language-html">
+&lt;app-input first="'Marco'">&lt;/app-input> </code></p-fragment><p-fragment> <code
+      class="self-center language-javascript">
+
+//Output: 5
+</code> </p-fragment> </pre>
+  </p-note>
+</p-slide>
+<p-slide class="two-columns-flex-start" style="flex-direction: row;align-items: center;">
+  <p-note class="my-presentation my-list" style="align-items: flex-start;">
+    <h6 class="text-cover">viewChild / viewChildren</h6>
+    <h6 class="text-cover">contentChild / contentChildren</h6>
+    <ul class="long-list" style="margin-top: 1em">
+      <li>📌 Sostituzione dei decorators con api signal-based</li>
+      <li>📌 Utilizzo di effect al posto dell’afterviewinit lifecycle</li>
+      <li>📌 contentChild / contentChildren possono essere usati con lo stesso approccio</li>
+    </ul>
+
+  </p-note>
+  <p-note style="font-size: 4vh;">
+    <pre class="self-center language-javascript" style="border: 1px solid #101099">
+      <code>
+  @Component({
+    ...
+    template: `
+      &lt;h1>SomeComponent&lt;/h1>
+      &lt;app-input lastName="Pollacci" />
+    `,
+    imports: [InputComponent],
+  })
+  export class SomeComponent {</code>
+    <p-fragment><code>childComponent = viewChild(InputComponent);</code></p-fragment>
+     <code>constructor() {</code>
+      <p-fragment><code>effect(() => {
+        console.log(this.childComponent()!.lastName())
+        // Output: Pollacci
+      })</code></p-fragment>
+    <code>}
+  }
+      </code>
+    </pre>
+  </p-note>
+</p-slide><!--/slide:part-three-->
+  <!--slide:thanks--><p-slide>
+  <img alt="thatsall" src="img/thatsall.gif" style="height: 60vh;" />
+</p-slide>
+<p-slide class="two-columns">
+  <p-note class="my-data my-presentation">
+    <h5 class="text-cover">Thank you again Folks!</h5>
+    <img alt="me" class="my-face" src="img/me.jpg" />
+    <span>Marco Pollacci</span>
+    <span class="text-cover">Senior Software Developer @GELLIFY</span>
+  </p-note>
+  <img alt="qr" src="img/qr_link.png" />
+</p-slide><!--/slide:thanks-->
 </p-deck>
 <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" class="presentation-progress" role="progressbar"
      title="Presentation progress"></div>
