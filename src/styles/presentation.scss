@@ -92,14 +92,6 @@ p-fragment.landing {
   align-items: center;
 }
 
-.text-cover {
-  @include mixins.gradientText(#1d99fd, #FF00F7);
-}
-
-.text-sub-section {
-  @include mixins.gradientText(#FF00D8, #FF542F);
-}
-
 .slide-quote {
   display: flex;
   flex-direction: column;
@@ -157,6 +149,14 @@ p-fragment.landing {
     opacity: 0.5;
   }
 
+}
+
+.cover-subSection {
+  @extend .cover;
+
+  h1 {
+    @include mixins.gradientText(#FF00D8, #FF542F);
+  }
 }
 
 .my-presentation {
@@ -356,4 +356,12 @@ a {
     font-size: 60%;
     margin-bottom: 0.5em;
   }
+}
+
+.text-cover {
+  @include mixins.gradientText(#1d99fd, #FF00F7);
+}
+
+.text-sub-section {
+  @include mixins.gradientText(#FF00D8, #FF542F);
 }

@@ -37,24 +37,22 @@
 <p-slide class="two-columns-flex-start">
   <p-note class="my-presentation my-list">
     <h5 class="text-cover">Signal</h5>
-    <p-fragment>
-      <ul class="long-list" style="margin-bottom: 1vh">
-        <li>📌 Ogni singolo signal è chiamato “producer”</li>
-        <li>📌 Sia i template sia le funzioni che “leggono” i signal (es: <u>computed</u> ed <u>effect</u>) sono chiamati
-          <b>“consumer”</b></li>
-        <li>📌 Quando questo accade, si crea una “connessione” tra producer <-> consumer che a livello logico è simile a
-          quella di una subscription negli observable
-        </li>
-        <li>📌 La differenza è: al variare del valore, i producer inviano una notifica di aggiornamento e non
-          direttamente
-          il nuovo valore, che andrà così esplicitamente letto
-        </li>
-        <li>📌 Il consumer potrà decidere di leggere il valore oppure non farlo mai.</li>
-        <li>📌 Le funzioni computed, producendo a loro volta un signal, sono contemporaneamente producer and consumer
-        </li>
-        <li>📌 I consumer sono memoized by default.</li>
-      </ul>
-    </p-fragment>
+    <ul class="long-list" style="margin-bottom: 1vh">
+      <li>📌 Ogni singolo signal è chiamato “producer”</li>
+      <li>📌 Sia i template sia le funzioni che “leggono” i signal (es: <u>computed</u> ed <u>effect</u>) sono chiamati
+        <b>“consumer”</b></li>
+      <li>📌 Quando questo accade, si crea una “connessione” tra producer <-> consumer che a livello logico è simile a
+        quella di una subscription negli observable
+      </li>
+      <li>📌 La differenza è: al variare del valore, i producer inviano una notifica di aggiornamento e non
+        direttamente
+        il nuovo valore, che andrà così esplicitamente letto
+      </li>
+      <li>📌 Il consumer potrà decidere di leggere il valore oppure non farlo mai.</li>
+      <li>📌 Le funzioni computed, producendo a loro volta un signal, sono contemporaneamente producer and consumer
+      </li>
+      <li>📌 I consumer sono memoized by default.</li>
+    </ul>
   </p-note>
   <img alt="qr" src="img/export_1.png" style="padding-top: 5vh" />
 </p-slide>
@@ -80,6 +78,58 @@
   <p-fragment class="invert"
               style="position: absolute;right: 1em;width: 9.5em;height: 2em;background: #FFF;top: 10.7em;"></p-fragment>
 </p-slide>
+<p-slide class="cover-subSection">
+  <h1>Observable vs Signal</h1>
+</p-slide>
 <p-slide>
-  aaaa
+  <h5 class="text-cover center">Observable vs Signal</h5>
+  <div class="two-columns">
+    <p-note>
+      <ul class="long-list">
+        <li>☝️Gli observable possono non emettere alcun valore</li>
+        <li>☝️Gli observable emettono i valori in maniera sincrona ed asincrona</li>
+        <li>☝️Gli observable hanno il concetto di stato “complete”</li>
+      </ul>
+    </p-note>
+    <p-note>
+      <ul class="long-list">
+        <li>☝️Signal ha sempre almeno un valore (alla sua creazione)</li>
+        <li>☝️Signal non emette nulla se non la notifica di un cambio di valore, che deve essere “pulled” dal consumer
+          che avviene in maniera sincrona
+        </li>
+        <li>☝️Signal non presenta il concetto di stato complete
+        </li>
+      </ul>
+    </p-note>
+  </div>
+</p-slide>
+<p-slide>
+  <h5 class="text-cover center">Observable vs Signal</h5>
+  <div class="two-columns" style="align-items: center;">
+    <img alt="code_03" src="img/export_3.png" />
+    <ul class="long-list">
+      <p-fragment>
+        <li>✔ combineLatest non emette nulla finché almeno uno dei due observable non ha almeno un valore</li>
+      </p-fragment>
+      <p-fragment>
+        <li>✔ Computed garantisce il “glitch-free” infatti ad ogni cambio di valore non viene emesso alcunché se non una
+          semplice notifica che previene l’esecuzione indesiderata del codice
+        </li>
+      </p-fragment>
+    </ul>
+  </div>
+</p-slide>
+<p-slide>
+  <h5 class="text-cover center">Observable vs Signal</h5>
+  <div class="two-columns" style="align-items: center;">
+    <img alt="code_04" src="img/export_4.png" />
+    <ul class="long-list">
+      <p-fragment>
+        <li>La differenza maggiore in questo caso è che merge(), quando uno degli observable passati è completo,
+          continuerà
+          a emettere valori solo dagli observable non completi e ignorerà gli altri. Comportamento che computed non ha
+        </li>
+      </p-fragment>
+    </ul>
+  </div>
 </p-slide>
