@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Angular Signal</title>
-    <base href=".." />
-    <link rel="shortcut icon" href="favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="vendor/prismjs/themes/prism.css" />
-    <link rel="stylesheet" href="css/main.css" />
-    <link rel="stylesheet" href="css/print.css" media="print" />
-    <link rel="stylesheet" href="css/presentation.css" />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Angular Signal</title>
+  <base href=".." />
+  <link href="favicon.svg" rel="shortcut icon" type="image/svg+xml" />
+  <link href="vendor/prismjs/themes/prism.css" rel="stylesheet" />
+  <link href="css/main.css" rel="stylesheet" />
+  <link href="css/print.css" media="print" rel="stylesheet" />
+  <link href="css/presentation.css" rel="stylesheet" />
+</head>
 
-  <body>
-    <img src="img/logo_dark_QmPdj9K.svg" alt="gdglogo" class="gdgLogo" />
-    <p-deck> <!--slide:cover--><p-slide class="cover">
+<body>
+<img alt="gdglogo" class="gdgLogo" src="img/logo_dark_QmPdj9K.svg" />
+<p-deck>
+  <!--slide:cover--><p-slide class="cover">
   <h1>Guida Essenziale all'Integrazione di Angular e Signal</h1>
    <p-note class="center">
      <h6>Un approccio pratico</h6>
@@ -29,7 +30,7 @@
   </p-note>
     <img src="img/qr_link.png" alt="qr" />
 </p-slide><!--/slide:cover-->
-<!--slide:part-one--><p-slide class="cover">
+  <!--slide:part-one--><p-slide class="cover">
   <h1>Partiamo dall’inizio…Signal?</h1>
   <p-fragment class="center">
     <img alt="so-confused" src="img/so-confused.gif" />
@@ -50,32 +51,153 @@
   <p-note style="font-size: 1.5vw;">
     https://docs.solidjs.com/concepts/signals
   </p-note>
+</p-slide>
+<p-slide class="two-columns-flex-start">
+  <p-note class="my-presentation my-list">
+    <h5 class="text-cover">Signal</h5>
+    <ul class="long-list">
+      <li>📌 Un signal contiene sempre un valore</li>
+      <li>📌 Al suo variare, chiunque lo utilizzi è in grado di accedere al nuovo valore</li>
+      <li>📌 La reattività di signal è sincrona ed il suo valore viene propagato istantaneamente</li>
+      <li>📌 E’ possibile “iscriversi” e reagire tramite consumer, come ad esempio <b>effect</b></li>
+      <li>📌 Per poter usare effect al di fuori del costruttore è necessario l’injector tra le sue opzioni</li>
+    </ul>
+
+  </p-note>
+  <img alt="qr" src="img/export_1.png" style="padding-top: 5vh" />
+</p-slide>
+<p-slide class="two-columns-flex-start">
+  <p-note class="my-presentation my-list">
+    <h5 class="text-cover">Signal</h5>
+    <ul class="long-list" style="margin-bottom: 1vh">
+      <li>📌 Ogni singolo signal è chiamato “producer”</li>
+      <li>📌 Sia i template sia le funzioni che “leggono” i signal (es: <u>computed</u> ed <u>effect</u>) sono chiamati
+        <b>“consumer”</b></li>
+      <li>📌 Quando questo accade, si crea una “connessione” tra producer <-> consumer che a livello logico è simile a
+        quella di una subscription negli observable
+      </li>
+      <li>📌 La differenza è: al variare del valore, i producer inviano una notifica di aggiornamento e non
+        direttamente
+        il nuovo valore, che andrà così esplicitamente letto
+      </li>
+      <li>📌 Il consumer potrà decidere di leggere il valore oppure non farlo mai.</li>
+      <li>📌 Le funzioni computed, producendo a loro volta un signal, sono contemporaneamente producer and consumer
+      </li>
+      <li>📌 I consumer sono memoized by default.</li>
+    </ul>
+  </p-note>
+  <img alt="qr" src="img/export_1.png" style="padding-top: 5vh" />
+</p-slide>
+<p-slide class="two-columns-flex-start" style="flex-direction: row;flex-wrap: nowrap;">
+  <p-note class="my-presentation my-list">
+    <h5 class="text-cover">Signal</h5>
+    <ul class="long-list">
+      <li>📌 E’ possibile creare signal definiti “computed” che dipendono dal valore di altri signal.</li>
+      <li>📌 Le dipendenze sono dinamiche e possono essere incluse in statement condizionali</li>
+      <li>📌 Sono memoized e lazy evaluated</li>
+      <li>📌 L’intera computazione viene eseguita unicamente al variare dei valori dei suoi consumer e solo se
+        esplicitamente “letti”
+      </li>
+      <li>📌 <b>Sono read only</b></li>
+    </ul>
+
+  </p-note>
+  <img alt="qr" src="img/export_2.png" style="padding-top: 0;transform: scale(0.95);" />
+  <p-fragment class="invert"
+              style="position: absolute;right: 1em;width: 9.5em;height: 1em;background: #FFF;top: 8.7em;"></p-fragment>
+  <p-fragment class="invert"
+              style="position: absolute;right: 1.5em;width: 9.5em;height: 1em;background: #FFF;top: 9.7em;"></p-fragment>
+  <p-fragment class="invert"
+              style="position: absolute;right: 1em;width: 9.5em;height: 2em;background: #FFF;top: 10.7em;"></p-fragment>
+</p-slide>
+<p-slide class="cover-subSection">
+  <h1>Observable vs Signal</h1>
+</p-slide>
+<p-slide>
+  <h5 class="text-cover center">Observable vs Signal</h5>
+  <div class="two-columns">
+    <p-note>
+      <ul class="long-list">
+        <li>☝️Gli observable possono non emettere alcun valore</li>
+        <li>☝️Gli observable emettono i valori in maniera sincrona ed asincrona</li>
+        <li>☝️Gli observable hanno il concetto di stato “complete”</li>
+      </ul>
+    </p-note>
+    <p-note>
+      <ul class="long-list">
+        <li>☝️Signal ha sempre almeno un valore (alla sua creazione)</li>
+        <li>☝️Signal non emette nulla se non la notifica di un cambio di valore, che deve essere “pulled” dal consumer
+          che avviene in maniera sincrona
+        </li>
+        <li>☝️Signal non presenta il concetto di stato complete
+        </li>
+      </ul>
+    </p-note>
+  </div>
+</p-slide>
+<p-slide>
+  <h5 class="text-cover center">Observable vs Signal</h5>
+  <div class="two-columns" style="align-items: center;">
+    <img alt="code_03" src="img/export_3.png" />
+    <ul class="long-list">
+      <p-fragment>
+        <li>✔ combineLatest non emette nulla finché almeno uno dei due observable non ha almeno un valore</li>
+      </p-fragment>
+      <p-fragment>
+        <li>✔ Computed garantisce il “glitch-free” infatti ad ogni cambio di valore non viene emesso alcunché se non una
+          semplice notifica che previene l’esecuzione indesiderata del codice
+        </li>
+      </p-fragment>
+    </ul>
+  </div>
+</p-slide>
+<p-slide>
+  <h5 class="text-cover center">Observable vs Signal</h5>
+  <div class="two-columns" style="align-items: center;">
+    <img alt="code_04" src="img/export_4.png" />
+    <ul class="long-list">
+      <p-fragment>
+        <li>La differenza maggiore in questo caso è che merge(), quando uno degli observable passati è completo,
+          continuerà
+          a emettere valori solo dagli observable non completi e ignorerà gli altri. Comportamento che computed non ha
+        </li>
+      </p-fragment>
+    </ul>
+  </div>
 </p-slide><!--/slide:part-one-->
+  <!--slide:part-two--><p-slide class="cover-subSection">
+  <h1>Signal: esempi di utilizzo</h1>
+</p-slide>
+<p-slide class="cover">
+  <h1>Todo List</h1>
+</p-slide><!--/slide:part-two-->
 </p-deck>
-    <div role="progressbar" class="presentation-progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" title="Presentation progress"></div>
-    <div role="toolbar" class="presentation-toolbar">
-      <button type="button" class="toggle-mode" title="Toggle speaker mode" aria-label="Toggle speaker mode (Alt-M)">
-        <svg viewBox="0 0 1 1">
-          <path stroke-width="0.1" stroke="currentColor" fill="none" d="M.05 .5h.6v-.45h-.6v.9h.6v-.45M.75 .05h.25M.75 .2h.25M.75 .35h.25" />
-        </svg>
-      </button>
-      <button type="button" class="fullscreen" title="Toggle fullscreen mode" aria-label="Toggle fullscreen mode">
-        <svg viewBox="0 0 1 1">
-          <g stroke="currentColor" fill="none" stroke-width="0.1">
-            <path d="M.05 .3v-.25h.25M.7 .05h.25v.25M.95 .7v.25h-.25M.3 .95h-.25v-.25" />
-            <path d="M.05 .3h.25v-.25M.7 .05v.25h.25M.95 .7h-.25v.25M.3 .95v-.25h-.25" />
-          </g>
-        </svg>
-      </button>
-    </div>
-    <nav class="presentation-nav">
-      <button type="button" class="previous" title="Go backward" aria-label="Go backward"></button>
-      <button type="button" class="next" title="Go forward" aria-label="Go forward"></button>
-    </nav>
-    <script type="module" src="js/main.js"></script>
-    <script type="module" src="js/presentation.js"></script>
-    <script defer src="vendor/prismjs/prism.js"></script>
-    <script defer src="vendor/prismjs/components/prism-typescript.js"></script>
-    <script defer src="vendor/prismjs/components/prism-scss.js"></script>
-  </body>
+<div aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" class="presentation-progress" role="progressbar"
+     title="Presentation progress"></div>
+<div class="presentation-toolbar" role="toolbar">
+  <button aria-label="Toggle speaker mode (Alt-M)" class="toggle-mode" title="Toggle speaker mode" type="button">
+    <svg viewBox="0 0 1 1">
+      <path d="M.05 .5h.6v-.45h-.6v.9h.6v-.45M.75 .05h.25M.75 .2h.25M.75 .35h.25" fill="none" stroke="currentColor"
+            stroke-width="0.1" />
+    </svg>
+  </button>
+  <button aria-label="Toggle fullscreen mode" class="fullscreen" title="Toggle fullscreen mode" type="button">
+    <svg viewBox="0 0 1 1">
+      <g fill="none" stroke="currentColor" stroke-width="0.1">
+        <path d="M.05 .3v-.25h.25M.7 .05h.25v.25M.95 .7v.25h-.25M.3 .95h-.25v-.25" />
+        <path d="M.05 .3h.25v-.25M.7 .05v.25h.25M.95 .7h-.25v.25M.3 .95v-.25h-.25" />
+      </g>
+    </svg>
+  </button>
+</div>
+<nav class="presentation-nav">
+  <button aria-label="Go backward" class="previous" title="Go backward" type="button"></button>
+  <button aria-label="Go forward" class="next" title="Go forward" type="button"></button>
+</nav>
+<script src="js/main.js" type="module"></script>
+<script src="js/presentation.js" type="module"></script>
+<script defer src="vendor/prismjs/prism.js"></script>
+<script defer src="vendor/prismjs/components/prism-typescript.js"></script>
+<script defer src="vendor/prismjs/components/prism-scss.js"></script>
+</body>
 </html>
