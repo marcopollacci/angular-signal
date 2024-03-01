@@ -1,8 +1,8 @@
-# Without class but with style
+# Angular Signal
 
-Slides for a talk about modern CSS methodology. ## slides, about 30 minutes.
+Slides for a talk about signal integration in Angular.
 
-Originally conceived for the [2024 Italian CSS Day](https://2024.cssday.it/) (in Italian), Faenza, 2024-04-05.
+Originally conceived for the [2024 February talk GDG Bologna](https://gdg.community.dev/events/details/google-gdg-bologna-presents-guida-essenziale-allintegrazione-di-angular-e-signal-un-approccio-pratico/) (in Italian), Bologna, 2024-02-27.
 
 Built on top of [P-Slides](https://github.com/MaxArt2501/p-slides)!
 
