@@ -5,7 +5,7 @@
 @import "core/progress.scss";
 
 :root {
-  font-family: Work Sans, system-ui, sans-serif;
+  font-family: Graphik Regular, system-ui, sans-serif;
 }
 
 body {
@@ -14,6 +14,13 @@ body {
 
 em {
   color: var(--brand-color);
+}
+.gdgLogo {
+  position: absolute;
+  z-index: 100;
+  max-width: 80vw;
+  top: 0.5vw;
+  left: 0.5vw;
 }
 
 .presentation-toolbar,
@@ -30,4 +37,5 @@ em {
     font-size: 3rem;
     color: var(--controls-color);
   }
+
 }

@@ -1,3 +1,4 @@
+@use 'core/mixins' as mixins;
 @import 'core/typography.scss';
 @import 'core/utility.scss';
 @import 'core/scaffold.scss';
@@ -7,31 +8,37 @@
   initial-value: 1px;
   inherits: true;
 }
+
 @property --sketchy-arrow-tip-spread {
   syntax: '<angle>';
   initial-value: 45deg;
   inherits: true;
 }
+
 @property --sketchy-arrow-tip-size {
   syntax: '<number>';
   initial-value: 40;
   inherits: true;
 }
+
 @property --sketchy-arrow-point-approx {
   syntax: '<number>';
   initial-value: 3;
   inherits: true;
 }
+
 @property --sketchy-arrow-count {
   syntax: '<integer>';
   initial-value: 3;
   inherits: true;
 }
+
 @property --sketchy-arrow-color {
   syntax: '<color>';
   initial-value: black;
   inherits: true;
 }
+
 @property --sketchy-arrow-random-seed {
   syntax: '<integer>';
   initial-value: 1234;
@@ -39,7 +46,7 @@
 }
 
 :root {
-  font-family: Work Sans, system-ui, sans-serif;
+  font-family: Graphik Regular, system-ui, sans-serif;
   --slide-bg: white;
   --sliding-duration: 0ms;
   --fragment-duration: 300ms;
@@ -51,12 +58,12 @@
 
 p-deck::after {
   position: fixed;
-  bottom: 0.5em;
+  top: 0.5em;
   left: 0;
-  right: 0;
+  right: 0.5em;
   font-size: 50%;
   text-align: center;
-  content: '@MaxArt2501';
+  content: '';
   color: #001236;
   z-index: 100;
 }
@@ -85,12 +92,27 @@ p-fragment.landing {
   align-items: center;
 }
 
+.text-cover {
+  @include mixins.gradientText(#1d99fd, #FF00F7);
+}
+
+.text-sub-section {
+  @include mixins.gradientText(#FF00D8, #FF542F);
+}
+
+.slide-quote {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  flex-wrap: nowrap;
+}
+
 .cover {
-  --slide-bg: var(--brand-color);
-  color: white;
 
   h1 {
-    font-size: 1.5em;
+    @include mixins.gradientText(#1d99fd, #FF00F7);
+    font-size: 0.9em;
+    text-align: center;
     margin-top: 0;
   }
 
@@ -105,9 +127,11 @@ p-fragment.landing {
   figure {
     margin: 0;
   }
+
   img {
     height: 4em;
   }
+
   > img {
     filter: invert(1) hue-rotate(180deg);
     height: 200%;
@@ -115,16 +139,17 @@ p-fragment.landing {
     opacity: 0.5;
   }
 
-  .logo {
-    background: white;
-    padding: 0.2em;
-    border-radius: 0.5em;
-    height: 5em;
-  }
 }
 
-.gellify {
-  text-transform: uppercase;
+.my-presentation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5vw;
+
+  span {
+    font-size: 2vw;
+  }
 }
 
 .links {
@@ -135,6 +160,7 @@ p-fragment.landing {
   li:not(:first-child) {
     margin-top: inherit;
   }
+
   a {
     display: block;
     width: -moz-fit-content;
@@ -143,50 +169,35 @@ p-fragment.landing {
   }
 }
 
-gfy-blob {
-  position: absolute;
-  height: 14em;
-  width: 14em;
-  right: -2em;
-  bottom: -2em;
-  z-index: -1;
-  filter: brightness(2);
-}
-
 .my-data {
-  > h2 {
+  text-align: center;
+
+  > h5 {
     margin-bottom: 0;
   }
-  a {
-    font-weight: bold;
-  }
-  a:first-of-type {
-    color: var(--brand-color-ant);
-  }
-  a:last-of-type {
-    color: var(--brand-color);
-  }
 }
+
 .my-face {
-  border: 0.1em solid var(--brand-color);
-  border-radius: 50%;
   height: 6em;
-  float: left;
   margin: 0 1em;
 }
+
 .my-info {
   width: 8em;
   text-align: center;
   margin: 2em 2em 0;
+
   img {
     height: 1em;
     vertical-align: middle;
   }
 }
+
 .final-link {
   a {
     color: var(--brand-color);
   }
+
   img {
     display: block;
     margin: 1em auto 0;
@@ -221,10 +232,12 @@ gfy-blob {
     grid-area: 1 / 1;
     padding-right: 100%;
   }
+
   &::before {
     background-image: url(../img/brush-stroke-1.png);
     transform: rotate(-30deg);
   }
+
   &::after {
     background-image: url(../img/brush-stroke-2.png);
     transform: rotate(30deg);
@@ -235,6 +248,7 @@ gfy-blob {
     &::after {
       animation: big-stroke calc(var(--fragment-duration, 300ms) / 2) ease-in 1 forwards;
     }
+
     &::after {
       animation-delay: calc(var(--fragment-duration, 300ms) / 2);
     }
@@ -277,6 +291,7 @@ a {
     height: auto;
     top: auto;
   }
+
   &.full-media-y {
     width: auto;
     left: auto;
@@ -293,9 +308,11 @@ a {
     height: 2em;
     filter: saturate(0) drop-shadow(0.1em 0.1em 0.1em #0005);
   }
+
   th {
     border-bottom: 0.1em solid;
   }
+
   td,
   th {
     text-align: center;
@@ -305,6 +322,7 @@ a {
       border-inline-start: 0.1em solid;
     }
   }
+
   span {
     font-size: 150%;
   }
