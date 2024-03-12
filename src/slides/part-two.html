@@ -4,40 +4,33 @@
 <p-slide class="cover">
   <h1>Todo List</h1>
 </p-slide>
-<p-slide>
-  <div class="two-columns" style="align-items: center;">
-    <img alt="code_05" src="img/export_5.png" />
-    <div class="two-columns" style="align-items: center;flex-direction: column">
-      <img alt="code_06" src="img/export_6.png" style="width: 10em;" />
-      <p-note class="long-list" style="margin-top: 1em;width: 21em;">
-        Essendo l’emissione di signal sincrona, la nostra lista è istantaneamente aggiornata ad ogni aggiunta di un task
-        tramite il bottone dedicato, evitandoci così di usare la pipe async o altri metodi di sottoscrizione
-      </p-note>
-    </div>
+<p-slide class="two-columns">
+  <img style="height: 12em; width: auto" alt="code_05" src="img/export_5.png" />
+  <div class="two-columns" style="align-items: center; flex-direction: column">
+    <img alt="code_06" src="img/export_6.png" style="width: 10em" />
+    <p-note class="long-list" style="margin-top: 1em; width: 21em"
+      >L'emissione di signal sincrona, la nostra lista è istantaneamente aggiornata ad ogni aggiunta di un task tramite il bottone dedicato, evitandoci così di usare la pipe async
+      o altri metodi di sottoscrizione
+    </p-note>
   </div>
 </p-slide>
 <p-slide class="cover">
   <h1>In sinergia con gli Observable</h1>
 </p-slide>
-<p-slide>
-  <div class="two-columns" style="align-items: center;">
-    <img alt="code_07" src="img/export_7.png" />
-    <div class="two-columns" style="flex-direction: column">
-      <p-note class="long-list center" style="width: fit-content;padding-top: 3em;padding-bottom: 1em">
-        In questo esempio vediamo come usare in perfetta sinergia observable e signal insieme.
-        Gli observable rimangono la scelta migliore per operazione asincrone. I signal risultano essere in questo
-        esempio, un perfetto sostituto dei behaviour subject per condividere lo stato dell’applicazione tramite service
-        (e non solo).
-      </p-note>
+<p-slide class="two-columns">
+  <img alt="code_07" src="img/export_7.png" />
+  <div class="two-columns" style="flex-direction: column">
+    <p-note class="long-list center" style="width: fit-content; padding-top: 3em; padding-bottom: 1em">
+      In questo esempio vediamo come usare in perfetta sinergia observable e signal insieme. Gli observable rimangono la scelta migliore per operazione asincrone. I signal
+      risultano essere in questo esempio, un perfetto sostituto dei behaviour subject per condividere lo stato dell’applicazione tramite service (e non solo).
+    </p-note>
 
-      <p-fragment class="long-list infoComputed" style="position: absolute">
-        La scelta di utilizzare computed è per evitare che venga modificato il valore dall’esterno del service
-      </p-fragment>
-      <p-fragment style="position: absolute;top: 7.7em;right: 4.5em;">↩</p-fragment>
-    </div>
+    <p-fragment class="long-list infoComputed" style="position: absolute">
+      La scelta di utilizzare computed è per evitare che venga modificato il valore dall’esterno del service
+    </p-fragment>
+    <p-fragment style="position: absolute; top: 7.7em; right: 4.5em">↩</p-fragment>
   </div>
 </p-slide>
-
 
 <style>
   .infoComputed {
@@ -47,6 +40,6 @@
     font-style: italic;
     top: 15em;
     right: 7.3em;
-    background: #FFF;
+    background: #fff;
   }
 </style>

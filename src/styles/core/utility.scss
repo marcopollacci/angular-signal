@@ -101,19 +101,18 @@
 }
 
 .two-columns {
-  display: flex;
   flex-wrap: wrap;
 
   > * {
     flex: 0 0 auto;
-    width: calc(50% - .5em);
+    width: calc(50% - 0.5em);
 
     &:nth-child(odd) {
-      margin-right: .5em;
+      margin-right: 0.5em;
     }
 
     &:nth-child(even) {
-      margin-left: .5em;
+      margin-left: 0.5em;
     }
   }
 }
@@ -122,6 +121,13 @@
   @extend .two-columns;
   justify-content: space-between;
   padding-top: 1.5em;
+}
+
+.two-columns-divided-vertically {
+  @extend .two-columns;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
 }
 
 $motion-entrance-timing-fn: cubic-bezier(.3, 1.21, .79, .91);
