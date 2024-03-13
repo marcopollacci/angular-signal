@@ -27,9 +27,13 @@ em {
 .gdgLogo {
   position: absolute;
   z-index: 100;
-  max-width: 80vw;
+  height: 2em;
+  width: auto;
   top: 0.5vw;
   left: 0.5vw;
+  @media screen and (pointer:coarse) {
+    height: 1.3em;
+  }
 }
 
 .presentation-toolbar,
