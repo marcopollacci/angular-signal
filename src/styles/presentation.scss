@@ -46,7 +46,10 @@
 }
 
 :root {
-  font-family: Graphik Regular, system-ui, sans-serif;
+  font-family:
+    Graphik Regular,
+    system-ui,
+    sans-serif;
   --slide-bg: white;
   --sliding-duration: 0ms;
   --fragment-duration: 300ms;
@@ -71,7 +74,9 @@ p-deck::after {
 p-fragment.landing {
   position: absolute;
   transform: scale(3);
-  transition: opacity var(--fragment-duration, 300ms), transform var(--fragment-duration, 300ms);
+  transition:
+    opacity var(--fragment-duration, 300ms),
+    transform var(--fragment-duration, 300ms);
 
   &[aria-hidden='false'],
   p-deck[mode='speaker'] & {
@@ -107,11 +112,11 @@ p-fragment.landing {
 }
 
 .invert {
-  &[aria-hidden="true"] {
+  &[aria-hidden='true'] {
     opacity: 1;
   }
 
-  &[aria-hidden="false"] {
+  &[aria-hidden='false'] {
     opacity: 0;
   }
 }
@@ -128,9 +133,8 @@ p-fragment.landing {
 }
 
 .cover {
-
   h1 {
-    @include mixins.gradientText(#1d99fd, #FF00F7);
+    @include mixins.gradientText(#1d99fd, #ff00f7);
     font-size: 0.9em;
     text-align: center;
     margin-top: 0;
@@ -158,14 +162,13 @@ p-fragment.landing {
     transform: translate(25%, -10%);
     opacity: 0.5;
   }
-
 }
 
 .cover-subSection {
   @extend .cover;
 
   h1 {
-    @include mixins.gradientText(#FF00D8, #FF542F);
+    @include mixins.gradientText(#ff00d8, #ff542f);
   }
 }
 
@@ -181,7 +184,8 @@ p-fragment.landing {
 }
 
 .my-list {
-  h5, h6 {
+  h5,
+  h6 {
     margin-bottom: 0;
     margin-top: 0;
   }
@@ -370,9 +374,9 @@ a {
 }
 
 .text-cover {
-  @include mixins.gradientText(#1d99fd, #FF00F7);
+  @include mixins.gradientText(#1d99fd, #ff00f7);
 }
 
 .text-sub-section {
-  @include mixins.gradientText(#FF00D8, #FF542F);
+  @include mixins.gradientText(#ff00d8, #ff542f);
 }

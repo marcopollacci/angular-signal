@@ -5,20 +5,12 @@
   </p-fragment>
 </p-slide>
 <p-slide class="slide-quote center">
-  <p-note class="text-sub-section" style="font-size: 1.8vw; line-height: 3vw">“Signals are the primary means of managing
-    state in your Solid application.
-    They provide a way to store and update values, and are the foundation of reactivity in Solid.
-
-    Signals can be used to represent any kind of state in your application, such as the current user, the current page,
-    or the current theme.
-
-    This can be any value, including primitive values such as strings and numbers, or complex values such as objects and
-    arrays.
-    ”
+  <p-note class="text-sub-section" style="font-size: 1.8vw; line-height: 3vw"
+    >“Signals are the primary means of managing state in your Solid application. They provide a way to store and update values, and are the foundation of reactivity in Solid.
+    Signals can be used to represent any kind of state in your application, such as the current user, the current page, or the current theme. This can be any value, including
+    primitive values such as strings and numbers, or complex values such as objects and arrays. ”
   </p-note>
-  <p-note style="font-size: 1.5vw;">
-    https://docs.solidjs.com/concepts/signals
-  </p-note>
+  <p-note style="font-size: 1.5vw"> https://docs.solidjs.com/concepts/signals </p-note>
 </p-slide>
 <p-slide class="two-columns-flex-start">
   <p-note class="my-presentation my-list">
@@ -30,7 +22,6 @@
       <li>📌 E’ possibile “iscriversi” e reagire tramite consumer, come ad esempio <b>effect</b></li>
       <li>📌 Per poter usare effect al di fuori del costruttore è necessario l’injector tra le sue opzioni</li>
     </ul>
-
   </p-note>
   <img alt="qr" src="img/export_1.png" />
 </p-slide>
@@ -39,50 +30,38 @@
     <h5 class="text-cover">Signal</h5>
     <ul class="long-list" style="margin-bottom: 0.5vh">
       <li>📌 Ogni singolo signal è chiamato “producer”</li>
-      <li>📌 Sia i template sia le funzioni che “leggono” i signal (es: <u>computed</u> ed <u>effect</u>) sono chiamati
-        <b>“consumer”</b></li>
-      <li>📌 Quando questo accade, si crea una “connessione” tra producer <-> consumer simile alla subscription negli
-        observable
-      </li>
-      <li>📌 I producer inviano una notifica di aggiornamento e non direttamente il nuovo valore, che andrà così
-        esplicitamente letto
-      </li>
+      <li>📌 Sia i template sia le funzioni che “leggono” i signal (es: <u>computed</u> ed <u>effect</u>) sono chiamati <b>“consumer”</b></li>
+      <li>📌 Quando questo accade, si crea una “connessione” tra producer <-> consumer simile alla subscription negli observable</li>
+      <li>📌 I producer inviano una notifica di aggiornamento e non direttamente il nuovo valore, che andrà così esplicitamente letto</li>
       <li>📌 Il consumer potrà decidere di leggere il valore oppure non farlo mai.</li>
-      <li>📌 Le funzioni computed, producendo a loro volta un signal, sono contemporaneamente producer and consumer
-      </li>
+      <li>📌 Le funzioni computed, producendo a loro volta un signal, sono contemporaneamente producer and consumer</li>
       <li>📌 I consumer sono memoized by default.</li>
     </ul>
   </p-note>
   <img alt="qr" src="img/export_1.png" />
 </p-slide>
-<p-slide class="two-columns-flex-start" style="flex-direction: row;flex-wrap: nowrap;">
+<p-slide class="two-columns-flex-start" style="flex-direction: row; flex-wrap: nowrap">
   <p-note class="my-presentation my-list">
     <h5 class="text-cover">Signal</h5>
     <ul class="long-list">
       <li>📌 E’ possibile creare signal definiti “computed” che dipendono dal valore di altri signal.</li>
       <li>📌 Le dipendenze sono dinamiche e possono essere incluse in statement condizionali</li>
       <li>📌 Sono memoized e lazy evaluated</li>
-      <li>📌 L’intera computazione viene eseguita unicamente al variare dei valori dei suoi consumer e solo se
-        esplicitamente “letti”
-      </li>
+      <li>📌 L’intera computazione viene eseguita unicamente al variare dei valori dei suoi consumer e solo se esplicitamente “letti”</li>
       <li>📌 <b>Sono read only</b></li>
     </ul>
-
   </p-note>
-  <img alt="qr" src="img/export_2.png" style="padding-top: 0;transform: scale(0.95);" />
-  <p-fragment class="invert"
-              style="position: absolute;right: 1em;width: 9.5em;height: 1em;background: #FFF;top: 8.7em;"></p-fragment>
-  <p-fragment class="invert"
-              style="position: absolute;right: 1.5em;width: 9.5em;height: 1em;background: #FFF;top: 9.7em;"></p-fragment>
-  <p-fragment class="invert"
-              style="position: absolute;right: 1em;width: 9.5em;height: 2em;background: #FFF;top: 10.7em;"></p-fragment>
+  <img alt="qr" src="img/export_2.png" style="padding-top: 0; transform: scale(0.95)" />
+  <p-fragment class="invert" style="position: absolute; right: 1em; width: 9.5em; height: 1em; background: #fff; top: 8.7em"></p-fragment>
+  <p-fragment class="invert" style="position: absolute; right: 1.5em; width: 9.5em; height: 1em; background: #fff; top: 9.7em"></p-fragment>
+  <p-fragment class="invert" style="position: absolute; right: 1em; width: 9.5em; height: 2em; background: #fff; top: 10.7em"></p-fragment>
 </p-slide>
 <p-slide class="cover-subSection">
   <h1>Observable vs Signal</h1>
 </p-slide>
 <p-slide>
   <h5 class="text-cover center">Observable vs Signal</h5>
-  <div style="display: flex; align-items: center;" class="two-columns">
+  <div style="display: flex; align-items: center" class="two-columns">
     <p-note>
       <ul class="long-list">
         <li>☝️Gli observable possono non emettere alcun valore</li>
@@ -93,26 +72,24 @@
     <p-note>
       <ul class="long-list">
         <li>☝️Signal ha sempre almeno un valore (alla sua creazione)</li>
-        <li>☝️Signal non emette nulla se non la notifica di un cambio di valore, che deve essere “pulled” dal consumer
-          che avviene in maniera sincrona
-        </li>
-        <li>☝️Signal non presenta il concetto di stato complete
-        </li>
+        <li>☝️Signal non emette nulla se non la notifica di un cambio di valore, che deve essere “pulled” dal consumer che avviene in maniera sincrona</li>
+        <li>☝️Signal non presenta il concetto di stato complete</li>
       </ul>
     </p-note>
   </div>
 </p-slide>
 <p-slide>
   <h5 class="text-cover center">Observable vs Signal</h5>
-  <div style="display: flex; align-items: center;" class="two-columns" style="align-items: center;">
+  <div style="display: flex; align-items: center" class="two-columns" style="align-items: center">
     <img alt="code_03" src="img/export_3.png" />
     <ul class="long-list">
       <p-fragment>
         <li>✔ combineLatest non emette nulla finché almeno uno dei due observable non ha almeno un valore</li>
       </p-fragment>
       <p-fragment>
-        <li>✔ Computed garantisce il “glitch-free” infatti ad ogni cambio di valore non viene emesso alcunché se non una
-          semplice notifica che previene l’esecuzione indesiderata del codice
+        <li>
+          ✔ Computed garantisce il “glitch-free” infatti ad ogni cambio di valore non viene emesso alcunché se non una semplice notifica che previene l’esecuzione indesiderata del
+          codice
         </li>
       </p-fragment>
     </ul>
@@ -120,13 +97,13 @@
 </p-slide>
 <p-slide>
   <h5 class="text-cover center">Observable vs Signal</h5>
-  <div style="display: flex; align-items: center;" class="two-columns" style="align-items: center;">
+  <div style="display: flex; align-items: center" class="two-columns" style="align-items: center">
     <img alt="code_04" src="img/export_4.png" />
     <ul class="long-list">
       <p-fragment>
-        <li>La differenza maggiore in questo caso è che merge(), quando uno degli observable passati è completo,
-          continuerà
-          a emettere valori solo dagli observable non completi e ignorerà gli altri. Comportamento che computed non ha
+        <li>
+          La differenza maggiore in questo caso è che merge(), quando uno degli observable passati è completo, continuerà a emettere valori solo dagli observable non completi e
+          ignorerà gli altri. Comportamento che computed non ha
         </li>
       </p-fragment>
     </ul>

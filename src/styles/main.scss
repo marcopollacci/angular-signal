@@ -1,17 +1,19 @@
-@import "core/props.scss";
-@import "core/deck.scss";
-@import "core/nav.scss";
-@import "core/toolbar.scss";
-@import "core/progress.scss";
+@import 'core/props.scss';
+@import 'core/deck.scss';
+@import 'core/nav.scss';
+@import 'core/toolbar.scss';
+@import 'core/progress.scss';
 
 :root {
-  font-family: Graphik Regular, system-ui, sans-serif;
+  font-family:
+    Graphik Regular,
+    system-ui,
+    sans-serif;
 }
 
 :fullscreen {
   .presentation-toolbar,
-  .presentation-nav
-  {
+  .presentation-nav {
     display: none;
   }
 }
@@ -31,7 +33,7 @@ em {
   width: auto;
   top: 0.5vw;
   left: 0.5vw;
-  @media screen and (pointer:coarse) {
+  @media screen and (pointer: coarse) {
     height: 1.3em;
   }
 }
@@ -43,12 +45,11 @@ em {
     border-radius: 0;
     background: none;
     padding: 0;
-    margin: .25em;
+    margin: 0.25em;
     cursor: pointer;
     width: 1em;
     height: 1em;
     font-size: 3rem;
     color: var(--controls-color);
   }
-
 }
