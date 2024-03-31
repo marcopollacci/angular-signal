@@ -460,10 +460,6 @@ a {
   }
 }
 
-.qr {
-  filter: grayscale(90%) brightness(60%);
-}
-
 .text-cover {
   @include mixins.gradientText(#1d99fd, #ff00f7);
 }
