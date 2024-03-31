@@ -84,6 +84,15 @@ p-fragment.landing {
   }
 }
 
+.to-do {
+  @extend .blink;
+  color: #f00;
+  border: 1px solid #f00;
+  font-weight: bold;
+  margin: 0.5em;
+  padding: 0.3em;
+}
+
 .our-header {
   border-left: var(--brand-color) solid 0.15em;
   padding: 0.5em;
@@ -98,17 +107,87 @@ p-fragment.landing {
 }
 
 .slide-quote {
+  display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   flex-wrap: nowrap;
 }
 
+.blockquote {
+  b {
+    font-family: 'Graphik Medium', sans-serif;
+  }
+
+  blockquote {
+    @include mixins.smallText;
+    line-height: 1.4;
+    position: relative;
+    margin: 0;
+    padding: 1.2em;
+  }
+
+  blockquote:before,
+  blockquote:after {
+    position: absolute;
+    color: #959595;
+    font-size: 5em;
+    width: 4rem;
+    height: 4rem;
+  }
+
+  blockquote:before {
+    content: '“';
+    inset-inline-start: -0.1em;
+    top: -0.3em;
+  }
+
+  blockquote:after {
+    content: '”';
+    inset-inline-end: 0;
+    bottom: 0.15em;
+  }
+
+  cite {
+    @include mixins.smallText;
+    line-height: 3;
+    text-align: left;
+    margin-inline-start: 1em;
+
+    a {
+      color: initial;
+    }
+  }
+}
+
+.small-text {
+  @include mixins.smallText;
+}
+
+.alter-image-size {
+  --image-start-size: 8em;
+  --image-width-size: auto;
+  height: var(--image-start-size);
+  width: var(--image-width-size);
+}
+
+code,
+pre {
+  &.small-line {
+    line-height: 1.1em;
+  }
+}
+
 .long-list {
-  font-size: 0.5em;
+  --li-margin-bottom: 0.3em;
+  @include mixins.smallText;
 
   li {
-    margin-bottom: 0.3em;
+    margin-bottom: var(--li-margin-bottom);
   }
+}
+
+.more-margin li {
+  margin-bottom: 0.6em;
 }
 
 .invert {
@@ -135,7 +214,7 @@ p-fragment.landing {
 .cover {
   h1 {
     @include mixins.gradientText(#1d99fd, #ff00f7);
-    font-size: 0.9em;
+    font-size: 1.3em;
     text-align: center;
     margin-top: 0;
   }
@@ -168,7 +247,15 @@ p-fragment.landing {
   @extend .cover;
 
   h1 {
-    @include mixins.gradientText(#ff00d8, #ff542f);
+    @include mixins.gradientText(#1d99fd, #ff00f7);
+    font-size: 0.9em;
+  }
+}
+
+.gradient-sub-section {
+  --starting-point-gradient: #fafafa;
+  h5 {
+    @include mixins.gradientText(var(--starting-point-gradient), #ff00f7);
   }
 }
 
@@ -373,10 +460,79 @@ a {
   }
 }
 
+.qr {
+  filter: grayscale(90%) brightness(60%);
+}
+
 .text-cover {
   @include mixins.gradientText(#1d99fd, #ff00f7);
 }
 
 .text-sub-section {
-  @include mixins.gradientText(#ff00d8, #ff542f);
+  color: #484848;
+}
+
+.special-file {
+  border-radius: 1em;
+  border: 1px solid blue;
+  padding: 0.1em 0.6em;
+  width: fit-content;
+  position: absolute;
+}
+
+p-slide {
+  .group-fragment[aria-hidden='false'] {
+    display: none;
+    &:last-child {
+      display: inherit;
+    }
+  }
+}
+
+pre[data-label-file] {
+  padding: 0 0 0.5em 0;
+  margin: 0;
+  border-radius: 1em;
+  border: 1px solid #c7c6c6;
+  position: relative;
+}
+pre[data-label-file]::before {
+  content: attr(data-label-file);
+  display: block;
+  width: 100%;
+  border-bottom: 1px solid #c7c6c6;
+  padding: 0.5em 1em;
+  text-align: center;
+  color: #6f6d6d;
+  font-size: 0.7em;
+}
+
+pre[data-label-file]::after {
+  content: '🔴 🟡 🟢 ';
+  position: absolute;
+  top: 0.5em;
+  inset-inline-start: 1em;
+  font-size: 0.7em;
+}
+
+.attention {
+  font-weight: bold;
+  &:before,
+  &:after {
+    color: #f00;
+    content: ' ⚠️ ';
+  }
+}
+
+.more-space {
+  --default-more-space: 1.3em;
+  line-height: var(--default-more-space);
+}
+
+.mid-dimension {
+  margin-bottom: 0.5em;
+  font-size: 0.7em;
+  li {
+    margin-bottom: 0.6em;
+  }
 }

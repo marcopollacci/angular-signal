@@ -38,6 +38,10 @@
   font-weight: bold;
 }
 
+.graphik-medium {
+  font-family: 'Graphik Medium', sans-serif;
+}
+
 .text-invert {
   color: white;
 }
@@ -79,6 +83,11 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+p-deck:not([mode='speaker']) .full-media-no-padding {
+  @extend .full-media;
+  padding: 0;
 }
 
 .blink {

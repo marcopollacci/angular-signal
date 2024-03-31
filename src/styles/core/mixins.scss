@@ -4,3 +4,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+@mixin smallText {
+  font-size: 0.5em;
+}
