@@ -1,0 +1,43 @@
+<p-slide class="cover-subSection">
+  <h1>Signal: esempi di utilizzo</h1>
+</p-slide>
+<p-slide class="cover">
+  <h1>Todo List</h1>
+</p-slide>
+<p-slide>
+  <pre class="language-javascript" data-label-file="app.component.ts"><code>    //..
+    export class AppComponent {
+       newTaskInputTitle = ''</code>
+      <p-fragment><code>toDoList = signal&lt;ToDoListInterface[]>([]);
+      </code></p-fragment>
+      <p-fragment><code>addTask() {
+        this.toDoList.update((oldList) => [
+          ...oldList,
+          {
+            id: this.toDoList.length + 1,
+            completed: false,
+            title: this.newTaskInputTitle,
+          },
+        ]);</code></p-fragment>
+    <code>}</code></pre>
+</p-slide>
+<p-slide>
+  <p-fragment style="position: absolute; inset-inline-start: 14em; z-index: 1"><img style="width: 8em" src="img/fallout_boy.png" alt="fallout boy" /></p-fragment>
+  <pre class="language-html small-line" data-label-file="app.component.html"><code class="mid-dimension">
+    &lt;div>
+      &lt;ul>
+        @for (task of toDoList(); track $index) {
+          &lt;li>{{ task.title }}&lt;/li>
+        } @empty {
+          &lt;li>No tasks&lt;/li>
+        }
+      &lt;/ul>
+      &lt;p>Total Task: {{ toDoList().length }}&lt;/p>
+      &lt;div>
+        &lt;p>Add new Task&lt;/p>
+        &lt;input [(ngModel)]="newTaskInput" type="text" />
+        &lt;button [disabled]="!newTaskInput" (click)="addTask()">Add_task&lt;/button>
+      &lt;/div>
+    &lt;/div>
+  </code></pre>
+</p-slide>

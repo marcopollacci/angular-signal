@@ -96,3 +96,100 @@
       }
   </code></pre>
 </p-slide>
+<p-slide class="cover-subSection">
+  <h1>Observable vs Signal</h1>
+</p-slide>
+<p-slide>
+  <h5 class="text-cover center">Observable vs Signal</h5>
+  <div style="display: flex; align-items: center" class="two-columns">
+    <p-note>
+      <ul class="long-list">
+        <li>☝️Gli observable non sono obbligati ad emettere un valore alla creazione</li>
+        <li>☝️Gli observable possono emettere i valori in maniera sincrona ed asincrona</li>
+        <li>☝️Gli observable hanno il concetto di stato “complete”</li>
+      </ul>
+    </p-note>
+    <p-note>
+      <ul class="long-list">
+        <li>☝️Signal ha sempre almeno un valore dalla sua creazione</li>
+        <li>☝️Signal non emette nulla se non la notifica di un cambio di valore, che deve essere “pulled” dal consumer</li>
+        <li>☝️Signal non presenta il concetto di stato complete</li>
+      </ul>
+    </p-note>
+  </div>
+</p-slide>
+<p-slide>
+  <h5 class="text-cover center">Observable vs Signal</h5>
+  <pre class="language-javascript" data-label-file=" "><code class="small-line">
+    //signal
+    const $v = computed(() => $foo() * $bar());
+
+    //RXJS
+    const v$ = combineLatest([foo$, bar$]).pipe(
+          map(([foo, bar]) => foo * bar)
+    );
+  </code></pre>
+</p-slide>
+<p-slide>
+  <h5 class="text-cover center">Observable vs Signal</h5>
+  <div class="two-columns internal-flex">
+    <pre class="small-line language-javascript" data-label-file=" "><code class="small-text">
+    //signal
+    const $v = computed(() => $foo() * $bar());
+
+    //RXJS
+    const v$ = combineLatest([foo$, bar$]).pipe(
+          map(([foo, bar]) => foo * bar)
+    );
+  </code></pre>
+    <p-note>
+      <ul class="long-list">
+        <p-fragment>
+          <li>✔ combineLatest non emette nulla finché almeno uno dei due observable non ha almeno un valore</li>
+        </p-fragment>
+        <p-fragment>
+          <li>
+            ✔ Computed garantisce il “glitch-free” infatti ad ogni cambio di valore non viene emesso alcunché se non una semplice notifica che previene l’esecuzione indesiderata
+            del codice
+          </li>
+        </p-fragment>
+      </ul>
+    </p-note>
+  </div>
+</p-slide>
+<p-slide>
+  <h5 class="text-cover center">Observable vs Signal</h5>
+  <pre class="language-javascript" data-label-file=" "><code class="small-line">
+    //signal
+    const $v = computed(() => $foo() ?? $bar() ?? 0);
+
+    //RXJS
+    const v$ = merge(foo$, bar$).pipe(
+        map ((val) => val ?? 0)
+    );
+  </code></pre>
+</p-slide>
+<p-slide>
+  <h5 class="text-cover center">Observable vs Signal</h5>
+  <div class="two-columns internal-flex">
+    <pre class="small-line language-javascript" data-label-file=" "><code class="small-text">
+      //signal
+      const $v = computed(() => $foo() ?? $bar() ?? 0);
+
+      //RXJS
+      const v$ = merge(foo$, bar$).pipe(
+          map ((val) => val ?? 0)
+      );
+  </code></pre>
+    <p-note>
+      <ul class="long-list">
+        <p-fragment>
+          <li>
+            ✔ La differenza maggiore in questo caso è che merge(), quando uno degli observable passati è completo, continuerà a emettere valori solo dagli observable non completi
+            e ignorerà gli altri. Comportamento che computed non ha
+          </li>
+        </p-fragment>
+      </ul>
+    </p-note>
+  </div>
+</p-slide>

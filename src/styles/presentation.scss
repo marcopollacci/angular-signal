@@ -257,6 +257,11 @@ pre {
   }
 }
 
+.internal-flex {
+  display: flex;
+  align-items: center;
+}
+
 .my-presentation {
   display: flex;
   flex-direction: column;
