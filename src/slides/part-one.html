@@ -96,20 +96,3 @@
       }
   </code></pre>
 </p-slide>
-<p-slide>
-  <pre class="small-line language-javascript" data-label-file="app.component.ts"><code class="small-text">    import {signal, computed} from '@angular/core';
-    //...
-    export default function AppComponent() {
-       myFirstSignal = signal&lt;number> (1);
-       runs = 0;
-       myFirstComputedSignal = computed(() => {
-        runs++;
-        return myFirstSignal() * 2;
-      });
-      constructor() {</code>
-    <p-fragment><code class="small-text">this.myFirstComputedSignal();
-        console.log('Number of runs: ', this.runs);
-        // Output: Number of runs: 1 <-- still 1 because the value of the signal hasn't changed
-      </code></p-fragment><code class="small-text">}
-  </code></pre>
-</p-slide>
