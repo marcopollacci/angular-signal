@@ -110,5 +110,15 @@
       checked = model(false);
     }
   </code></pre>
-  <p-notes> Sono in tutto e per tutto uguali agli input (possono essere usati in funzioni computed ed effect) </p-notes>
+</p-slide>
+<p-slide>
+  <h5 class="text-cover center">❗ Principali differenze ❗</h5>
+  <ul class="long-list">
+    <p-fragment><li>📌 model() definisce sia un input che un output</li></p-fragment>
+    <p-fragment><li>📌 Il nome dell'output è sempre il nome dell'input suffisso con Change per supportare i collegamenti bidirezionali</li></p-fragment>
+    <p-fragment
+      ><li>📌 ModelSignal è un WritableSignal, il che significa che il suo valore può essere modificato da qualsiasi punto utilizzando i metodi set e update.</li></p-fragment
+    >
+    <p-fragment><li>📌 I ModelSignal non supportano le trasformazioni degli input mentre i SignalInput sì</li></p-fragment>
+  </ul>
 </p-slide>
