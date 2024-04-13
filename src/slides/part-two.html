@@ -22,7 +22,6 @@
     <code>}</code></pre>
 </p-slide>
 <p-slide>
-  <p-fragment style="position: absolute; inset-inline-start: 14em; z-index: 1"><img style="width: 8em" src="img/fallout_boy.png" alt="fallout boy" /></p-fragment>
   <pre class="language-html small-line" data-label-file="app.component.html"><code class="mid-dimension">
     &lt;div>
       &lt;ul>
@@ -39,5 +38,65 @@
         &lt;button [disabled]="!newTaskInput" (click)="addTask()">Add_task&lt;/button>
       &lt;/div>
     &lt;/div>
+  </code></pre>
+</p-slide>
+<p-slide class="cover">
+  <h1>In sinergia con gli Observable</h1>
+</p-slide>
+<p-slide>
+  <p-note style="font-size: 0.65em" class="mid-dimension center">⚙️ Signal ed Observable possono essere usati insieme in modo efficiente ⚙️</p-note>
+</p-slide>
+<p-slide>
+  Ma...in che modo? 🤔
+  <p-fragment style="margin: 0.5em 0">Sostituendo i BehaviorSubject con i Signals!</p-fragment>
+  <p-fragment class="center"><img style="width: 5em" src="img/fallout_boy.png" alt="fallout boy" /></p-fragment>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.5em" class="center">👨‍💻</h4>
+  <pre class="small-line" data-label-file="app.service.ts"><code class="language-javascript mid-dimension">
+    //..
+    export class AppService {</code>
+   <p-fragment><code class="language-javascript mid-dimension">private _userSignal = signal&lt;UserInterface>({ /* some initial value... */ });</code></p-fragment>
+   <p-fragment><code class="language-javascript mid-dimension">userSignal = computed(() => this._userSignal);</code></p-fragment>
+   <p-fragment><code class="language-javascript mid-dimension">constructor(private http: HttpClient) {}
+      fetchUser() {
+        this.http
+          .get&lt;UserInterface>("https://...")
+          .subscribe((user) => {</code></p-fragment>
+        <p-fragment><code class="language-javascript mid-dimension">this._userSignal.set(user);
+          });
+      }
+    }
+  </code></p-fragment></pre>
+  <p-fragment style="--circle-sketch-height: 1.2em; position: absolute; inset-inline-start: 2em; z-index: 1; top: 6.1em; width: 11em" class="circle-sketch-highlight"></p-fragment>
+  <p-notes>La scelta di utilizzare computed è per evitare che venga modificato il valore dall’esterno del service</p-notes>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.5em" class="center">👨‍💻</h4>
+  <pre class="small-line" data-label-file="app.component.ts"><code class="language-javascript mid-dimension">
+    @Component({
+      /* ... */
+    })
+    export class AppComponent {
+      UserServiceSignal = this.appService.userSignal();
+
+      constructor(private appService: AppService) {}
+
+      fetchUser(): void {
+        this.appService.fetchUser();
+      }
+    }
+  </code></pre>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.5em" class="center">👨‍💻</h4>
+  <pre class="small-line" data-label-file="app.component.html.ts"><code class="language-javascript mid-dimension">
+    &lt;h1>User Profile&lt;/h1>
+    @if (userServiceSignal().id !== 0) {
+      &lt;h3>{{ userServiceSignal().name }}&lt;/h3>
+      &lt;p>{{ userServiceSignal().email }}&lt;/p>
+    } @else {
+      &lt;button (click)="fetchUser()">Fetch User&lt;/button>
+    }
   </code></pre>
 </p-slide>
