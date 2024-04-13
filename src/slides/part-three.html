@@ -40,3 +40,75 @@
     <p-fragment><code class="language-html">// Output 5</code> </p-fragment>
   </pre>
 </p-slide>
+<p-slide class="center">
+  <h5 style="margin-bottom: 0.5em" class="text-sub-section">Signal-based queries</h5>
+  🔎
+</p-slide>
+<p-slide autoplay timing-fragment="1000">
+  <h5 style="margin-bottom: 0" class="text-cover center">viewChild / viewChildren</h5>
+  <h5 style="margin-top: 0.4em" class="text-cover center">contentChild / contentChildren</h5>
+  <ul class="long-list">
+    <p-fragment timing-start="100"><li>📌 Sostituzione dei decorators con api signal-based</li></p-fragment>
+    <p-fragment><li>📌 Utilizzo di effect al posto dell’afterviewinit lifecycle</li></p-fragment>
+    <p-fragment><li>📌 contentChild / contentChildren possono essere usati con lo stesso approccio</li></p-fragment>
+  </ul>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.5em" class="center">Some code 👨‍💻</h4>
+  <pre data-label-file="signal-queries.ts" class="language-javascript"> <code class="small-text">@Component({
+      template: `&lt;h1>SomeComponent&lt;/h1>
+        &lt;app-input lastName="Pollacci" />`,
+      imports: [InputComponent],
+    })
+    export class SomeComponent {
+      childComponent = viewChild(InputComponent);
+      constructor() {
+        effect(() => console.log(this.childComponent()!.LastName()));
+        // Output: Pollacci
+      }
+    }</code></pre>
+</p-slide>
+<p-slide>
+  <h5 style="margin-bottom: 0.5em" class="text-cover">Signal Model Input</h5>
+  <p class="mid-dimension">Sono un tipo speciale di input che consentono a un componente di propagare nuovi valori al componente padre</p>
+  <pre data-label-file="signal-model.ts" class="language-javascript"><code class="mid-dimension">
+    import {Component, model, input} from '@angular/core';
+    @Component({...})
+    export class CustomCheckbox {
+      // This is a model input.
+      checked = model(false);
+
+      // This is a standard input.
+      disabled = input(false);
+    }
+  </code></pre>
+  <p-notes> Sono in tutto e per tutto uguali agli input (possono essere usati in funzioni computed ed effect) </p-notes>
+</p-slide>
+<p-slide>
+  <h5 style="margin-bottom: 0.5em" class="text-cover">Signal Model Input</h5>
+  <p class="mid-dimension">Two way binding</p>
+  <pre data-label-file="signal-model.ts" class="language-javascript"><code class="mid-dimension">
+    @Component({
+      // ...
+      // `checked` is a model input.
+      // The parenthesis-inside-square-brackets syntax creates a two-way binding
+      template: '&lt;custom-checkbox [(checked)]="isAdmin" />',
+    })
+    export class UserProfile {
+      protected isAdmin = false;
+    }
+  </code></pre>
+</p-slide>
+<p-slide>
+  <h5 style="margin-bottom: 0.5em" class="text-cover">Signal Model Input</h5>
+  <p class="mid-dimension">Angular crea automaticamente un output e viene usato come suffisso "Change"</p>
+  <pre data-label-file="signal-model.ts" class="language-javascript"><code class="mid-dimension">
+    @Directive({...})
+    export class CustomCheckbox {
+      // This automatically creates an output named "checkedChange".
+      // Can be subscribed to using `(checkedChange)="handler()"` in the template.
+      checked = model(false);
+    }
+  </code></pre>
+  <p-notes> Sono in tutto e per tutto uguali agli input (possono essere usati in funzioni computed ed effect) </p-notes>
+</p-slide>
