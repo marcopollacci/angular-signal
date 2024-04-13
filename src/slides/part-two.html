@@ -48,7 +48,7 @@
 </p-slide>
 <p-slide>
   Ma...in che modo? 🤔
-  <p-fragment style="margin: 0.5em 0">Sostituendo i BehaviorSubject con i Signals!</p-fragment>
+  <p-fragment style="margin: 0.5em 0">Utilizziamoli insieme al client http di Angular!</p-fragment>
   <p-fragment class="center"><img style="width: 5em" src="img/fallout_boy.png" alt="fallout boy" /></p-fragment>
 </p-slide>
 <p-slide>
@@ -99,4 +99,81 @@
       &lt;button (click)="fetchUser()">Fetch User&lt;/button>
     }
   </code></pre>
+</p-slide>
+<p-slide>
+  Altro? 🤔
+  <p-fragment style="margin: 0.5em 0">Con RxJS ed i websocket!</p-fragment>
+  <p-fragment class="center"><img style="width: 5em" src="img/fallout_boy.png" alt="fallout boy" /></p-fragment>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.5em" class="center">Service 👨‍💻</h4>
+  <p-fragment style="--circle-sketch-height: 2em; position: absolute; inset-inline-start: 2em; z-index: 1; top: 5.4em; width: 13em" class="circle-sketch-highlight"></p-fragment>
+  <p-fragment style="--circle-sketch-height: 1.2em; position: absolute; inset-inline-start: 2em; z-index: 1; top: 8.35em; width: 19em" class="circle-sketch-highlight"></p-fragment>
+  <pre class="small-line" data-label-file="chat.service.ts"><code class="language-javascript mid-dimension">
+    //..
+    export class ChatService {
+      private _messagesSignal = signal&lt;string[]>([]);
+      messagesSignal = computed(() => this._messagesSignal);
+      private socket$ = webSocket&lt;string>("ws://localhost:3000");
+      constructor() {
+        this.socket$.subscribe((message) => {
+          return this._messagesSignal.update((messages) => [...messages, message]);
+        });
+      }
+      sendMessage(msg: string) {
+        this.socket$.next(msg);
+      }
+    }
+  </code></pre>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.5em" class="center">Component 👨‍💻</h4>
+  <pre class="small-line" data-label-file="chat.component.ts"><code class="language-javascript mid-dimension">
+    //..
+    export class ChatComponent {
+      message = '';
+      messageReceived = this.chatService.messagesSignal();
+      constructor(private chatService: ChatService) {}
+
+      sendMessage() {
+        this.chatService.sendMessage(this.message);
+        this.message = '';
+      }
+    }
+
+  </code></pre>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.5em" class="center">Template 👨‍💻</h4>
+  <pre class="small-line" data-label-file="chat.component.html"><code class="language-javascript mid-dimension">
+        &lt;ul>
+          @for (message of messageReceived(); track $index) {
+          &lt;li>{{ message }}&lt;/li>
+          } @empty {
+          &lt;li>No messages&lt;/li>
+          }
+          &lt;input [(ngModel)]="message" />
+          &lt;button [disabled]="!message" (click)="sendMessage()">Send&lt;/button>
+        &lt;/ul>
+      </code></pre>
+</p-slide>
+<p-slide>
+  Altro? 🤔
+  <p-fragment style="margin: 0.5em 0">Altro!</p-fragment>
+  <p-fragment style="--from-bottom-default-translate: 100%" class="fragment-animation-from-bottom center"
+    ><img style="width: 8em" src="img/cool_meme.gif" alt="cool meme gif"
+  /></p-fragment>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.5em" class="center"><span class="text-sub-section">Ogni tipo di operazione sincrona può essere effettuata con i signal</span> 📡</h4>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.7em">🙌 Ad esempio 🙌</h4>
+  <ul class="long-list">
+    <p-fragment><li>📌 Aggiornamento Carrello e-Commerce</li></p-fragment>
+    <p-fragment><li>📌 Sistema di notifiche</li></p-fragment>
+    <p-fragment
+      ><li>📌 <i>"Sostituzione di NGRX per specifici use case con store piccoli e semplici"</i></li></p-fragment
+    >
+  </ul>
 </p-slide>

@@ -53,7 +53,7 @@
   </ul>
 </p-slide>
 <p-slide class="center">
-  <h4>🧮 <span class="text-sub-section">Computed</span> 🧮</h4>
+  <h4>🧮 <span class="text-sub-section">computed()</span> 🧮</h4>
 </p-slide>
 <p-slide>
   <h4 style="margin-bottom: 0.7em">🙌 Signal Computed 🙌</h4>
@@ -102,6 +102,9 @@
         <code class="mid-dimension">}
       }
   </code></pre>
+</p-slide>
+<p-slide class="center">
+  <h4>💥 <span class="text-sub-section">effect()</span> 💥</h4>
 </p-slide>
 <p-slide>
   <h4 style="margin-bottom: 0.5em" class="center">effect() 👨‍💻</h4>
@@ -157,16 +160,14 @@
       console.log(`User set to `${currentUser()}` and the counter is ${untracked(counter)}`);
     });
     </code></p-fragment>
-  </code></pre>
+  </pre>
   <p-notes
     >This example logs a message when either currentUser or counter changes. However, if the effect should only run when currentUser changes, then the read of counter is only
     incidental and changes to counter shouldn't log a new message. You can prevent a signal read from being tracked by calling its getter with untracked:</p-notes
   >
   <p-notes>
     untracked is also useful when an effect needs to invoke some external code which shouldn't be treated as a dependency:
-    <code>    // If the `loggingService` reads signals, they won't be counted as
-      // dependencies of this effect.
-      this.loggingService.log(`User set to ${user}`);</code>
+    <code> // If the `loggingService` reads signals, they won't be counted as // dependencies of this effect. this.loggingService.log(`User set to ${user}`);</code>
   </p-notes>
   <p-notes>untracked può essere usato nello stesso modo anche su computed</p-notes>
 </p-slide>
@@ -200,7 +201,7 @@
     //signal
     const $v = computed(() => $foo() * $bar());
 
-    //RXJS
+    //rxjs
     const v$ = combineLatest([foo$, bar$]).pipe(
           map(([foo, bar]) => foo * bar)
     );
@@ -213,7 +214,7 @@
     //signal
     const $v = computed(() => $foo() * $bar());
 
-    //RXJS
+    //rxjs
     const v$ = combineLatest([foo$, bar$]).pipe(
           map(([foo, bar]) => foo * bar)
     );
@@ -237,7 +238,7 @@
     //signal
     const $v = computed(() => $foo() ?? $bar() ?? 0);
 
-    //RXJS
+    //rxjs
     const v$ = merge(foo$, bar$).pipe(
         map ((val) => val ?? 0)
     );
@@ -250,7 +251,7 @@
       //signal
       const $v = computed(() => $foo() ?? $bar() ?? 0);
 
-      //RXJS
+      //rxjs
       const v$ = merge(foo$, bar$).pipe(
           map ((val) => val ?? 0)
       );
