@@ -6,7 +6,7 @@ Originally conceived for the [2024 February talk GDG Bologna](https://gdg.commun
 
 ### More Talk:
 
-- [BolognaJS](https://www.meetup.com/it-IT/bologna-js-meetup/events/300327193/) - Bologna, 2024-03-17
+- [BolognaJS](https://www.meetup.com/it-IT/bologna-js-meetup/events/300327193/) - Bologna, 2024-04-17
 
 Built on top of [P-Slides](https://github.com/MaxArt2501/p-slides)!
 
