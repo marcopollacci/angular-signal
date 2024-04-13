@@ -57,6 +57,7 @@
   --brand-color-ant: #f60;
   --sketchy-arrow-width: 0.1em;
   --sketchy-arrow-tip-size: 20;
+  --bolognajs-color-logo: #f3df49;
 }
 
 p-deck::after {
@@ -541,4 +542,13 @@ pre[data-label-file]::after {
 
 .fragment-animation-from-bottom[aria-hidden='false'] {
   animation: from-bottom 5s;
+}
+
+.bolognajs-logo {
+  background: var(--bolognajs-color-logo);
+  mask: url(/img/bolognajs-logo.svg) no-repeat center;
+  -webkit-mask: url(/img/bolognajs-logo.svg) no-repeat center;
+  width: 4em;
+  height: 4em;
+  margin: 0 auto;
 }
