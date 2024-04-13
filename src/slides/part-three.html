@@ -1,0 +1,42 @@
+<p-slide class="text-sub-section center">
+  <h1>Ultime novità</h1>
+</p-slide>
+<p-slide autoplay timing-fragment="1000">
+  <h5 class="text-cover center">Signal Input</h5>
+  <ul class="long-list">
+    <p-fragment timing-start="100"><li>📌 Modalità di gestione della logica di change input molto più facile</li></p-fragment>
+    <p-fragment><li>📌 Integrazione più efficace con la onPush strategy</li></p-fragment>
+    <p-fragment><li>📌 Effect sostituisce ngOnChanges</li></p-fragment>
+    <p-fragment><li>📌 Nessuna breaking change per i componenti padre</li></p-fragment>
+    <p-fragment><li>📌 E’ possibile definire un nome alternativo attraverso la proprietà alias di input</li></p-fragment>
+  </ul>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.5em" class="center">Some code 👨‍💻</h4>
+  <pre data-label-file="signal-input.ts" class="language-javascript"> <code>
+    export class InputComponent {
+      firstName = input&lt;string>();
+      // required inputs
+      lastName = input.required&lt;string>();
+    }
+   </code>
+    <p-fragment><code class="language-html">&lt;app-input lastName="Doe">&lt;/app-input> </code> </p-fragment> </pre>
+</p-slide>
+<p-slide class="center">
+  <h5 style="margin-bottom: 0.5em" class="text-sub-section">E’ possibile effettuare operazioni di trasformazione alla ricezione dell’input tramite la proprietà transform</h5>
+  🧙‍♂️
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.5em" class="center">Some code 👨‍💻</h4>
+  <pre data-label-file="signal-input.ts" class="language-javascript"> <code>
+    export class InputComponent {
+      firstName = input&lt;number, string>(0, {
+        alias: "first",
+        transform: (value) => value.length,
+      });
+    }
+  </code>
+    <p-fragment><code class="language-html">&lt;app-input [first]="'Marco'" /></code> </p-fragment>
+    <p-fragment><code class="language-html">// Output 5</code> </p-fragment>
+  </pre>
+</p-slide>
