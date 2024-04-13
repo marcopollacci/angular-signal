@@ -12,49 +12,164 @@
   </p-note>
   <p-note style="font-size: 1.5vw"> https://docs.solidjs.com/concepts/signals </p-note>
 </p-slide>
-<p-slide class="two-columns-flex-start">
-  <p-note class="my-presentation my-list">
-    <h5 class="text-cover">Signal</h5>
-    <ul class="long-list">
-      <li>📌 Un signal contiene sempre un valore</li>
-      <li>📌 Al suo variare, chiunque lo utilizzi è in grado di accedere al nuovo valore</li>
-      <li>📌 La reattività di signal è sincrona ed il suo valore viene propagato istantaneamente</li>
-      <li>📌 E’ possibile “iscriversi” e reagire tramite consumer, come ad esempio <b>effect</b></li>
-      <li>📌 Per poter usare effect al di fuori del costruttore è necessario l’injector tra le sue opzioni</li>
-    </ul>
-  </p-note>
-  <img alt="qr" src="img/export_1.png" />
+<p-slide>
+  <h4 style="margin-bottom: 0.7em">🙌 Signal 🙌</h4>
+  <ul class="long-list">
+    <p-fragment><li>📌 Un signal contiene sempre un valore</li></p-fragment>
+    <p-fragment><li>📌 Al suo variare, chiunque lo utilizzi è in grado di accedere al nuovo valore</li></p-fragment>
+    <p-fragment><li>📌 La reattività di signal è sincrona ed il suo valore viene propagato istantaneamente</li></p-fragment>
+    <p-fragment><li>📌 Ogni singolo signal è chiamato “producer”</li></p-fragment>
+  </ul>
 </p-slide>
-<p-slide class="two-columns-flex-start">
-  <p-note class="my-presentation my-list">
-    <h5 class="text-cover">Signal</h5>
-    <ul class="long-list" style="margin-bottom: 0.5vh">
-      <li>📌 Ogni singolo signal è chiamato “producer”</li>
-      <li>📌 Sia i template sia le funzioni che “leggono” i signal (es: <u>computed</u> ed <u>effect</u>) sono chiamati <b>“consumer”</b></li>
-      <li>📌 Quando questo accade, si crea una “connessione” tra producer <-> consumer simile alla subscription negli observable</li>
-      <li>📌 I producer inviano una notifica di aggiornamento e non direttamente il nuovo valore, che andrà così esplicitamente letto</li>
-      <li>📌 Il consumer potrà decidere di leggere il valore oppure non farlo mai.</li>
-      <li>📌 Le funzioni computed, producendo a loro volta un signal, sono contemporaneamente producer and consumer</li>
-      <li>📌 I consumer sono memoized by default.</li>
-    </ul>
-  </p-note>
-  <img alt="qr" src="img/export_1.png" />
+<p-slide>
+  <pre class="language-javascript" data-label-file="app.component.ts"><code class="small-line">
+    import {signal} from '@angular/core';
+    //...
+    export class AppComponent {
+      myFirstSignal = signal&lt;number> (1);
+
+      constructor() {</code>
+      <p-fragment><code>console.log('My first signal: ', this.myFirstSignal());
+      // Output: My first signal: 1</code></p-fragment>
+    <code>}
+  </code></pre>
 </p-slide>
-<p-slide class="two-columns-flex-start" style="flex-direction: row; flex-wrap: nowrap">
-  <p-note class="my-presentation my-list">
-    <h5 class="text-cover">Signal</h5>
-    <ul class="long-list">
-      <li>📌 E’ possibile creare signal definiti “computed” che dipendono dal valore di altri signal.</li>
-      <li>📌 Le dipendenze sono dinamiche e possono essere incluse in statement condizionali</li>
-      <li>📌 Sono memoized e lazy evaluated</li>
-      <li>📌 L’intera computazione viene eseguita unicamente al variare dei valori dei suoi consumer e solo se esplicitamente “letti”</li>
-      <li>📌 <b>Sono read only</b></li>
-    </ul>
-  </p-note>
-  <img alt="qr" src="img/export_2.png" style="padding-top: 0; transform: scale(0.95)" />
-  <p-fragment class="invert" style="position: absolute; right: 1em; width: 9.5em; height: 1em; background: #fff; top: 8.7em"></p-fragment>
-  <p-fragment class="invert" style="position: absolute; right: 1.5em; width: 9.5em; height: 1em; background: #fff; top: 9.7em"></p-fragment>
-  <p-fragment class="invert" style="position: absolute; right: 1em; width: 9.5em; height: 2em; background: #fff; top: 10.7em"></p-fragment>
+<p-slide class="center">
+  <h4>🤑 <span class="text-sub-section">Consumer</span> 🤑</h4>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.7em">🙌 Signal Consumer 🙌</h4>
+  <ul class="long-list">
+    <p-fragment
+      ><li>📌 Sia i template sia le funzioni che “leggono” i signal (es: <u>computed</u> ed <u>effect</u>) sono chiamati <b>“consumer”</b></li></p-fragment
+    >
+    <p-fragment
+      ><li>📌 E’ possibile “iscriversi” e reagire tramite i consumer, come ad esempio <b>effect</b></li></p-fragment
+    >
+    <p-fragment><li>📌 Quando questo accade, si crea una “connessione” tra producer <-> consumer simile alla subscription negli observable</li></p-fragment>
+    <p-fragment><li>📌 I producer inviano una notifica di aggiornamento e non direttamente il nuovo valore, che andrà così esplicitamente letto</li></p-fragment>
+    <p-fragment><li>📌 Il consumer potrà decidere di leggere il valore oppure non farlo mai.</li></p-fragment>
+    <p-fragment><li>📌 I consumer sono memoized by default.</li></p-fragment>
+  </ul>
+</p-slide>
+<p-slide class="center">
+  <h4>🧮 <span class="text-sub-section">computed()</span> 🧮</h4>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.7em">🙌 Signal Computed 🙌</h4>
+  <ul class="long-list">
+    <p-fragment><li>📌 E’ possibile creare signal definiti “computed” che dipendono dal valore di altri signal</li></p-fragment>
+    <p-fragment><li>📌 Le dipendenze sono dinamiche e possono essere incluse in statement condizionali</li></p-fragment>
+    <p-fragment><li>📌 Sono memoized e lazy evaluated</li></p-fragment>
+    <p-fragment><li>📌 L’intera computazione viene eseguita unicamente al variare dei valori dei suoi consumer e solo se esplicitamente “letti”</li></p-fragment>
+    <p-fragment><li>📌 Le funzioni computed, producendo a loro volta un signal, sono contemporaneamente producer and consumer</li></p-fragment>
+    <p-fragment
+      ><li>📌 <b>Sono read only</b></li></p-fragment
+    >
+  </ul>
+</p-slide>
+<p-slide follow-fragments>
+  <h4 style="margin-bottom: 0.5em" class="center">computed() 👨‍💻</h4>
+  <pre class="small-line language-javascript" data-label-file="app.component.ts"><code class="mid-dimension">    import {signal, computed} from '@angular/core';
+    //...
+    export class AppComponent {
+        myFirstSignal = signal&lt;number> (1);</code>
+     <p-fragment><code class="mid-dimension">runs = 0;</code></p-fragment>
+     <p-fragment><code class="mid-dimension">myFirstComputedSignal = computed(() => {
+          runs++;
+          return myFirstSignal() * 2;
+        });</code></p-fragment>
+      <code class="mid-dimension">
+      constructor() {</code>
+     <p-fragment><code class="mid-dimension">console.log('My computed signal: ', this.myFirstComputedSignal());
+        // Output: My computed signal: 2
+        console.log('Number of runs: ', this.runs);
+        // Output: Number of runs: 1 <-- 1 because the computed signal as been read once
+        </code></p-fragment>
+     <p-fragment><code class="mid-dimension">this.myFirstComputedSignal();
+        console.log('Number of runs: ', this.runs);
+        // Output: Number of runs: 1 <-- still 1 because the value of the signal hasn't changed
+        </code></p-fragment>
+     <p-fragment><code class="mid-dimension">this.myFirstSignal.set(2);
+        console.log('Number of runs: ', this.runs);
+        // Output: Number of runs: 1 <-- because the computed signal as not read again
+        </code></p-fragment>
+     <p-fragment><code class="mid-dimension">console.log('My second computed signal: ', this.myFirstComputedSignal());
+        // Output: My second computed signal: 4
+        console.log('Number of runs: ', this.runs);
+        // Output: Number of runs: 2 <-- because the computed signal as been read again
+        </code></p-fragment>
+        <code class="mid-dimension">}
+      }
+  </code></pre>
+</p-slide>
+<p-slide class="center">
+  <h4>💥 <span class="text-sub-section">effect()</span> 💥</h4>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.5em" class="center">effect() 👨‍💻</h4>
+  <pre class="small-line language-javascript" data-label-file="app.component.ts"><code class="mid-dimension">
+    @Component({...})
+    export class AppComponent {
+      readonly count = signal(0);
+      constructor() {
+        // Register a new effect.
+        effect(() => {
+          console.log(`The count is: ${this.count()})`);
+        });
+    }
+  }
+  </code></pre>
+</p-slide>
+<p-slide autoplay timing="1000">
+  <h4 style="margin-bottom: 0.5em" class="attention center">important!</h4>
+  <p-note class="center mid-dimension">Se si utilizza effect() fuori dal costruttore, va usato l' <code>Injector</code> </p-note>
+  <p-fragment style="--circle-sketch-height: 1.2em; position: absolute; inset-inline-start: 2em; z-index: 1; top: 7.15em; width: 11em" class="circle-sketch-highlight"></p-fragment>
+  <p-fragment
+    timing-start="1500"
+    style="--circle-sketch-height: 1.2em; position: absolute; inset-inline-start: 2em; z-index: 1; top: 10.15em; width: 9em"
+    class="circle-sketch-highlight"
+  ></p-fragment>
+  <pre class="small-line language-javascript" data-label-file="app.component.ts"><code class="mid-dimension">
+    @Component({...})
+    export class AppComponent {
+      readonly count = signal(0);
+      constructor(private injector: Injector) {}
+
+      myBeautifulFunction(): void {
+        effect(() => {
+          console.log(`The count is: ${this.count()})`);
+        }, {injector: this.injector});
+      }
+  }
+  </code></pre>
+</p-slide>
+<p-slide>
+  <p-note class="mid-dimension">Ma c'è un modo per leggere un signal senza per forza generare una dipendenza dallo stesso usando effect() e computed()? 🧐</p-note>
+  <p-fragment style="margin-top: 2em" class="center">...Si...(¬_¬)</p-fragment>
+  <p-fragment style="margin-top: 6.5em; font-size: 0.4em; text-align: end">...ma fatelo il meno possibile ৻( •̀ ᗜ •́ ৻)</p-fragment>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.5em" class="center">untracked() 👨‍💻</h4>
+  <pre class="small-line language-javascript" data-label-file="app.component.ts"><code class="mid-dimension">
+    effect(() => {
+      console.log(`User set to `${currentUser()}` and the counter is ${counter()}`);
+    });</code>
+    <p-fragment><code class="mid-dimension">
+    effect(() => {
+      console.log(`User set to `${currentUser()}` and the counter is ${untracked(counter)}`);
+    });
+    </code></p-fragment>
+  </pre>
+  <p-notes
+    >This example logs a message when either currentUser or counter changes. However, if the effect should only run when currentUser changes, then the read of counter is only
+    incidental and changes to counter shouldn't log a new message. You can prevent a signal read from being tracked by calling its getter with untracked:</p-notes
+  >
+  <p-notes>
+    untracked is also useful when an effect needs to invoke some external code which shouldn't be treated as a dependency:
+    <code> // If the `loggingService` reads signals, they won't be counted as // dependencies of this effect. this.loggingService.log(`User set to ${user}`);</code>
+  </p-notes>
+  <p-notes>untracked può essere usato nello stesso modo anche su computed</p-notes>
 </p-slide>
 <p-slide class="cover-subSection">
   <h1>Observable vs Signal</h1>
@@ -64,48 +179,91 @@
   <div style="display: flex; align-items: center" class="two-columns">
     <p-note>
       <ul class="long-list">
-        <li>☝️Gli observable possono non emettere alcun valore</li>
-        <li>☝️Gli observable emettono i valori in maniera sincrona ed asincrona</li>
+        <li>☝️Gli observable non sono obbligati ad emettere un valore alla creazione</li>
+        <li>☝️Gli observable possono emettere i valori in maniera sincrona ed asincrona</li>
         <li>☝️Gli observable hanno il concetto di stato “complete”</li>
       </ul>
     </p-note>
+    <p-fragment
+      ><p-note>
+        <ul class="long-list">
+          <li>☝️Signal ha sempre almeno un valore dalla sua creazione</li>
+          <li>☝️Signal non emette nulla se non la notifica di un cambio di valore, che deve essere “pulled” dal consumer</li>
+          <li>☝️Signal non presenta il concetto di stato complete</li>
+        </ul>
+      </p-note></p-fragment
+    >
+  </div>
+</p-slide>
+<p-slide>
+  <h5 class="text-cover center">Observable vs Signal</h5>
+  <pre class="language-javascript" data-label-file=" "><code class="small-line">
+    //signal
+    const $v = computed(() => $foo() * $bar());
+
+    //rxjs
+    const v$ = combineLatest([foo$, bar$]).pipe(
+          map(([foo, bar]) => foo * bar)
+    );
+  </code></pre>
+</p-slide>
+<p-slide>
+  <h5 class="text-cover center">Observable vs Signal</h5>
+  <div class="two-columns internal-flex">
+    <pre class="small-line language-javascript" data-label-file=" "><code class="small-text">
+    //signal
+    const $v = computed(() => $foo() * $bar());
+
+    //rxjs
+    const v$ = combineLatest([foo$, bar$]).pipe(
+          map(([foo, bar]) => foo * bar)
+    );
+  </code></pre>
     <p-note>
       <ul class="long-list">
-        <li>☝️Signal ha sempre almeno un valore (alla sua creazione)</li>
-        <li>☝️Signal non emette nulla se non la notifica di un cambio di valore, che deve essere “pulled” dal consumer che avviene in maniera sincrona</li>
-        <li>☝️Signal non presenta il concetto di stato complete</li>
+        <li>✔ combineLatest non emette nulla finché almeno uno dei due observable non ha almeno un valore</li>
+        <p-fragment>
+          <li>
+            ✔ Computed garantisce il “glitch-free” infatti ad ogni cambio di valore non viene emesso alcunché se non una semplice notifica che previene l’esecuzione indesiderata
+            del codice
+          </li>
+        </p-fragment>
       </ul>
     </p-note>
   </div>
 </p-slide>
 <p-slide>
   <h5 class="text-cover center">Observable vs Signal</h5>
-  <div style="display: flex; align-items: center" class="two-columns" style="align-items: center">
-    <img alt="code_03" src="img/export_3.png" />
-    <ul class="long-list">
-      <p-fragment>
-        <li>✔ combineLatest non emette nulla finché almeno uno dei due observable non ha almeno un valore</li>
-      </p-fragment>
-      <p-fragment>
-        <li>
-          ✔ Computed garantisce il “glitch-free” infatti ad ogni cambio di valore non viene emesso alcunché se non una semplice notifica che previene l’esecuzione indesiderata del
-          codice
-        </li>
-      </p-fragment>
-    </ul>
-  </div>
+  <pre class="language-javascript" data-label-file=" "><code class="small-line">
+    //signal
+    const $v = computed(() => $foo() ?? $bar() ?? 0);
+
+    //rxjs
+    const v$ = merge(foo$, bar$).pipe(
+        map ((val) => val ?? 0)
+    );
+  </code></pre>
 </p-slide>
 <p-slide>
   <h5 class="text-cover center">Observable vs Signal</h5>
-  <div style="display: flex; align-items: center" class="two-columns" style="align-items: center">
-    <img alt="code_04" src="img/export_4.png" />
-    <ul class="long-list">
-      <p-fragment>
+  <div class="two-columns internal-flex">
+    <pre class="small-line language-javascript" data-label-file=" "><code class="small-text">
+      //signal
+      const $v = computed(() => $foo() ?? $bar() ?? 0);
+
+      //rxjs
+      const v$ = merge(foo$, bar$).pipe(
+          map ((val) => val ?? 0)
+      );
+  </code></pre>
+    <p-note>
+      <ul class="long-list">
         <li>
-          La differenza maggiore in questo caso è che merge(), quando uno degli observable passati è completo, continuerà a emettere valori solo dagli observable non completi e
-          ignorerà gli altri. Comportamento che computed non ha
+          ✔ La differenza in questo caso è che merge() quando uno degli observable passati è completo, continuerà a emettere valori solo dagli observable non completi e ignorerà
+          gli altri.<br />
+          Comportamento che computed non ha non avendo il concetto di “complete”
         </li>
-      </p-fragment>
-    </ul>
+      </ul>
+    </p-note>
   </div>
 </p-slide>

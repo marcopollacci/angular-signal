@@ -4,42 +4,176 @@
 <p-slide class="cover">
   <h1>Todo List</h1>
 </p-slide>
-<p-slide class="two-columns">
-  <img style="height: 12em; width: auto" alt="code_05" src="img/export_5.png" />
-  <div class="two-columns" style="align-items: center; flex-direction: column">
-    <img alt="code_06" src="img/export_6.png" style="width: 10em" />
-    <p-note class="long-list" style="margin-top: 1em; width: 21em"
-      >L'emissione di signal sincrona, la nostra lista è istantaneamente aggiornata ad ogni aggiunta di un task tramite il bottone dedicato, evitandoci così di usare la pipe async
-      o altri metodi di sottoscrizione
-    </p-note>
-  </div>
+<p-slide>
+  <pre class="language-javascript" data-label-file="app.component.ts"><code>    //..
+    export class AppComponent {
+       newTaskInputTitle = ''</code>
+      <p-fragment><code>toDoList = signal&lt;ToDoListInterface[]>([]);
+      </code></p-fragment>
+      <p-fragment><code>addTask() {
+        this.toDoList.update((oldList) => [
+          ...oldList,
+          {
+            id: this.toDoList.length + 1,
+            completed: false,
+            title: this.newTaskInputTitle,
+          },
+        ]);</code></p-fragment>
+    <code>}</code></pre>
+</p-slide>
+<p-slide>
+  <pre class="language-html small-line" data-label-file="app.component.html"><code class="mid-dimension">
+    &lt;div>
+      &lt;ul>
+        @for (task of toDoList(); track $index) {
+          &lt;li>{{ task.title }}&lt;/li>
+        } @empty {
+          &lt;li>No tasks&lt;/li>
+        }
+      &lt;/ul>
+      &lt;p>Total Task: {{ toDoList().length }}&lt;/p>
+      &lt;div>
+        &lt;p>Add new Task&lt;/p>
+        &lt;input [(ngModel)]="newTaskInput" type="text" />
+        &lt;button [disabled]="!newTaskInput" (click)="addTask()">Add_task&lt;/button>
+      &lt;/div>
+    &lt;/div>
+  </code></pre>
 </p-slide>
 <p-slide class="cover">
   <h1>In sinergia con gli Observable</h1>
 </p-slide>
-<p-slide class="two-columns">
-  <img alt="code_07" src="img/export_7.png" />
-  <div class="two-columns" style="flex-direction: column">
-    <p-note class="long-list center" style="width: fit-content; padding-top: 3em; padding-bottom: 1em">
-      In questo esempio vediamo come usare in perfetta sinergia observable e signal insieme. Gli observable rimangono la scelta migliore per operazione asincrone. I signal
-      risultano essere in questo esempio, un perfetto sostituto dei behaviour subject per condividere lo stato dell’applicazione tramite service (e non solo).
-    </p-note>
-
-    <p-fragment class="long-list infoComputed" style="position: absolute">
-      La scelta di utilizzare computed è per evitare che venga modificato il valore dall’esterno del service
-    </p-fragment>
-    <p-fragment style="position: absolute; top: 7.7em; right: 4.5em">↩</p-fragment>
-  </div>
+<p-slide>
+  <p-note style="font-size: 0.65em" class="mid-dimension center">⚙️ Signal ed Observable possono essere usati insieme in modo efficiente ⚙️</p-note>
 </p-slide>
+<p-slide>
+  Ma...in che modo? 🤔
+  <p-fragment style="margin: 0.5em 0">Utilizziamoli insieme al client http di Angular!</p-fragment>
+  <p-fragment class="center"><img style="width: 5em" src="img/fallout_boy.png" alt="fallout boy" /></p-fragment>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.5em" class="center">👨‍💻</h4>
+  <pre class="small-line" data-label-file="app.service.ts"><code class="language-javascript mid-dimension">
+    //..
+    export class AppService {</code>
+   <p-fragment><code class="language-javascript mid-dimension">private _userSignal = signal&lt;UserInterface>({ /* some initial value... */ });</code></p-fragment>
+   <p-fragment><code class="language-javascript mid-dimension">userSignal = computed(() => this._userSignal);</code></p-fragment>
+   <p-fragment><code class="language-javascript mid-dimension">constructor(private http: HttpClient) {}
+      fetchUser() {
+        this.http
+          .get&lt;UserInterface>("https://...")
+          .subscribe((user) => {</code></p-fragment>
+        <p-fragment><code class="language-javascript mid-dimension">this._userSignal.set(user);
+          });
+      }
+    }
+  </code></p-fragment></pre>
+  <p-fragment style="--circle-sketch-height: 1.2em; position: absolute; inset-inline-start: 2em; z-index: 1; top: 6.1em; width: 11em" class="circle-sketch-highlight"></p-fragment>
+  <p-notes>La scelta di utilizzare computed è per evitare che venga modificato il valore dall’esterno del service</p-notes>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.5em" class="center">👨‍💻</h4>
+  <pre class="small-line" data-label-file="app.component.ts"><code class="language-javascript mid-dimension">
+    @Component({
+      /* ... */
+    })
+    export class AppComponent {
+      UserServiceSignal = this.appService.userSignal();
 
-<style>
-  .infoComputed {
-    position: absolute;
-    border: 2px solid;
-    text-align: center;
-    font-style: italic;
-    top: 15em;
-    right: 7.3em;
-    background: #fff;
-  }
-</style>
+      constructor(private appService: AppService) {}
+
+      fetchUser(): void {
+        this.appService.fetchUser();
+      }
+    }
+  </code></pre>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.5em" class="center">👨‍💻</h4>
+  <pre class="small-line" data-label-file="app.component.html.ts"><code class="language-javascript mid-dimension">
+    &lt;h1>User Profile&lt;/h1>
+    @if (userServiceSignal().id !== 0) {
+      &lt;h3>{{ userServiceSignal().name }}&lt;/h3>
+      &lt;p>{{ userServiceSignal().email }}&lt;/p>
+    } @else {
+      &lt;button (click)="fetchUser()">Fetch User&lt;/button>
+    }
+  </code></pre>
+</p-slide>
+<p-slide>
+  Altro? 🤔
+  <p-fragment style="margin: 0.5em 0">Con RxJS ed i websocket!</p-fragment>
+  <p-fragment class="center"><img style="width: 5em" src="img/fallout_boy.png" alt="fallout boy" /></p-fragment>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.5em" class="center">Service 👨‍💻</h4>
+  <p-fragment style="--circle-sketch-height: 2em; position: absolute; inset-inline-start: 2em; z-index: 1; top: 5.4em; width: 13em" class="circle-sketch-highlight"></p-fragment>
+  <p-fragment style="--circle-sketch-height: 1.2em; position: absolute; inset-inline-start: 2em; z-index: 1; top: 8.35em; width: 19em" class="circle-sketch-highlight"></p-fragment>
+  <pre class="small-line" data-label-file="chat.service.ts"><code class="language-javascript mid-dimension">
+    //..
+    export class ChatService {
+      private _messagesSignal = signal&lt;string[]>([]);
+      messagesSignal = computed(() => this._messagesSignal);
+      private socket$ = webSocket&lt;string>("ws://localhost:3000");
+      constructor() {
+        this.socket$.subscribe((message) => {
+          return this._messagesSignal.update((messages) => [...messages, message]);
+        });
+      }
+      sendMessage(msg: string) {
+        this.socket$.next(msg);
+      }
+    }
+  </code></pre>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.5em" class="center">Component 👨‍💻</h4>
+  <pre class="small-line" data-label-file="chat.component.ts"><code class="language-javascript mid-dimension">
+    //..
+    export class ChatComponent {
+      message = '';
+      messageReceived = this.chatService.messagesSignal();
+      constructor(private chatService: ChatService) {}
+
+      sendMessage() {
+        this.chatService.sendMessage(this.message);
+        this.message = '';
+      }
+    }
+
+  </code></pre>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.5em" class="center">Template 👨‍💻</h4>
+  <pre class="small-line" data-label-file="chat.component.html"><code class="language-javascript mid-dimension">
+        &lt;ul>
+          @for (message of messageReceived(); track $index) {
+          &lt;li>{{ message }}&lt;/li>
+          } @empty {
+          &lt;li>No messages&lt;/li>
+          }
+          &lt;input [(ngModel)]="message" />
+          &lt;button [disabled]="!message" (click)="sendMessage()">Send&lt;/button>
+        &lt;/ul>
+      </code></pre>
+</p-slide>
+<p-slide>
+  Altro? 🤔
+  <p-fragment style="margin: 0.5em 0">Altro!</p-fragment>
+  <p-fragment style="--from-bottom-default-translate: 100%" class="fragment-animation-from-bottom center"
+    ><img style="width: 8em" src="img/cool_meme.gif" alt="cool meme gif"
+  /></p-fragment>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.5em" class="center"><span class="text-sub-section">Ogni tipo di operazione sincrona può essere effettuata con i signal</span> 📡</h4>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.7em">🙌 Ad esempio 🙌</h4>
+  <ul class="long-list">
+    <p-fragment><li>📌 Aggiornamento Carrello e-Commerce</li></p-fragment>
+    <p-fragment><li>📌 Sistema di notifiche</li></p-fragment>
+    <p-fragment
+      ><li>📌 <i>"Sostituzione di NGRX per specifici use case con store piccoli e semplici"</i></li></p-fragment
+    >
+  </ul>
+</p-slide>
