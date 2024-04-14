@@ -14,8 +14,13 @@ p-deck {
   display: block;
   font-size: calc(var(--slide-print-width) * var(--slide-font-size) / 100) !important;
   -webkit-print-color-adjust: exact;
+  background: transparent !important;
 }
 p-slide {
   animation: none;
   page-break-after: always;
+}
+
+p-fragment {
+  opacity: 1 !important;
 }
