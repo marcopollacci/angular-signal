@@ -195,6 +195,16 @@ $motion-entrance-timing-fn: cubic-bezier(0.3, 1.21, 0.79, 0.91);
   }
 }
 
+@keyframes shadow-logo {
+  0%,
+  100% {
+    filter: drop-shadow(12px 12px 7px rgba(0, 0, 0, 0.5));
+  }
+  50% {
+    filter: drop-shadow(12px 18px 7px rgba(109, 108, 108, 0.5));
+  }
+}
+
 p-deck:not([mode='speaker']) {
   @each $dir in top right bottom left above below {
     p-fragment[aria-hidden='false'] .from-#{$dir},
