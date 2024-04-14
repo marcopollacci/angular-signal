@@ -60,13 +60,13 @@
         &lt;app-input lastName="Pollacci" />`,
       imports: [InputComponent],
     })
-    export class SomeComponent {
-      childComponent = viewChild(InputComponent);
-      constructor() {
+    export class SomeComponent {</code>
+    <p-fragment><code class="small-text">childComponent = viewChild(InputComponent);</code></p-fragment>
+    <p-fragment><code class="small-text">constructor() {
         effect(() => console.log(this.childComponent()!.LastName()));
         // Output: Pollacci
       }
-    }</code></pre>
+    }</code></p-fragment></pre>
 </p-slide>
 <p-slide>
   <h5 style="margin-bottom: 0.5em" class="text-cover">Signal Model Input</h5>

@@ -165,10 +165,7 @@
     >This example logs a message when either currentUser or counter changes. However, if the effect should only run when currentUser changes, then the read of counter is only
     incidental and changes to counter shouldn't log a new message. You can prevent a signal read from being tracked by calling its getter with untracked:</p-notes
   >
-  <p-notes>
-    untracked is also useful when an effect needs to invoke some external code which shouldn't be treated as a dependency:
-    <code> // If the `loggingService` reads signals, they won't be counted as // dependencies of this effect. this.loggingService.log(`User set to ${user}`);</code>
-  </p-notes>
+  <p-notes> untracked is also useful when an effect needs to invoke some external code which shouldn't be treated as a dependency </p-notes>
   <p-notes>untracked può essere usato nello stesso modo anche su computed</p-notes>
 </p-slide>
 <p-slide class="cover-subSection">
