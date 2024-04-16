@@ -46,14 +46,6 @@ export function listenSlideAutoplay(el) {
   });
 }
 
-document.querySelectorAll(`p-slide[autoplay]`).forEach(el => {
-  listenSlideAutoplay(el);
-});
-
-document.querySelectorAll(`p-fragment[group-fragment]`).forEach(el => {
-  listenGroupFragment(el, el.getAttribute('group-fragment'));
-});
-
 export function listenSlideFollowFragment(el) {
   const observer = new MutationObserver(mutations => {
     mutations.forEach(mutation => {
@@ -67,6 +59,14 @@ export function listenSlideFollowFragment(el) {
     attributeFilter: ['aria-hidden']
   });
 }
+
+document.querySelectorAll(`p-slide[autoplay]`).forEach(el => {
+  listenSlideAutoplay(el);
+});
+
+document.querySelectorAll(`p-fragment[group-fragment]`).forEach(el => {
+  listenGroupFragment(el, el.getAttribute('group-fragment'));
+});
 
 document.querySelectorAll(`p-slide[follow-fragments] p-fragment`).forEach(el => {
   listenSlideFollowFragment(el);

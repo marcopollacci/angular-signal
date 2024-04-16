@@ -488,7 +488,7 @@ p-slide {
     display: none;
     position: absolute;
     filter: brightness(1.5);
-    z-index: -1;
+    opacity: 0.95;
     width: 8em;
     height: 8em;
     animation: box 7s ease infinite alternate;
