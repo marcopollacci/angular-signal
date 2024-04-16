@@ -486,6 +486,7 @@ a {
 p-slide {
   gfy-blob {
     display: none;
+    position: absolute;
     filter: brightness(1.5);
     z-index: -1;
     width: 8em;
