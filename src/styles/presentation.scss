@@ -484,6 +484,19 @@ a {
 }
 
 p-slide {
+  gfy-blob {
+    display: none;
+    filter: brightness(1.5);
+    position: absolute;
+    z-index: -1;
+    width: 13em;
+    height: 13em;
+  }
+  &[aria-hidden='false'] {
+    gfy-blob {
+      display: block;
+    }
+  }
   .group-fragment[aria-hidden='false'] {
     display: none;
     &:last-child {
