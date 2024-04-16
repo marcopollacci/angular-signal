@@ -145,7 +145,7 @@
   </code></pre>
 </p-slide>
 <p-slide>
-  <p-note class="mid-dimension">Ma c'è un modo per leggere un signal senza per forza generare una dipendenza dallo stesso usando effect() e computed()? 🧐</p-note>
+  <p-note class="mid-dimension">Ma, c'è un modo per leggere un signal senza generare una dipendenza dallo stesso usando effect() e computed()? 🧐</p-note>
   <p-fragment style="margin-top: 2em" class="center">...Si...(¬_¬)</p-fragment>
   <p-fragment style="margin-top: 6.5em; font-size: 0.4em; text-align: end">...ma fatelo il meno possibile ৻( •̀ ᗜ •́ ৻)</p-fragment>
 </p-slide>
@@ -218,11 +218,11 @@
   </code></pre>
     <p-note>
       <ul class="long-list">
-        <li>✔ combineLatest non emette nulla finché almeno uno dei due observable non ha almeno un valore</li>
+        <li>✔ combineLatest non emette nulla, finché almeno uno dei due observable non ha almeno un valore</li>
         <p-fragment>
           <li>
-            ✔ Computed garantisce il “glitch-free” infatti ad ogni cambio di valore non viene emesso alcunché se non una semplice notifica che previene l’esecuzione indesiderata
-            del codice
+            ✔ Computed garantisce il “glitch-free”; ad ogni cambio di valore non viene emesso alcunché se non una semplice notifica, che previene l’esecuzione indesiderata del
+            codice
           </li>
         </p-fragment>
       </ul>
