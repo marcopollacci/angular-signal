@@ -264,3 +264,42 @@
     </p-note>
   </div>
 </p-slide>
+<p-slide class="center">
+  <h5>🔄 <span class="text-sub-section">Observable --> Signal</span> 🔄</h5>
+</p-slide>
+<p-slide>
+  <h5>Angular mette a disposizione una funzione specifica per convertire gli Observale esistenti in Signal:</h5>
+  <h5 class="center" style="margin-top: 0"><code>toSignal()</code></h5>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.5em" class="center">👨‍💻</h4>
+  <pre class="small-line" data-label-file="app.component.ts"><code class="language-javascript">
+    @Component({
+      standalone: true,
+      template:`{{ counter() }}`,
+    })
+    export class FooComponent { </code>
+      <p-fragment><code class="language-javascript">counter$ = interval(1000);</code></p-fragment>
+      <p-fragment><code class="language-javascript">counter  = toSignal(this.counter$);</code></p-fragment>
+   <code class="language-javascript">}
+  </code></pre>
+  <p-fragment><img class="toSignalImg" alt="toSignal code" src="img/tosignal_vscode.png" /> </p-fragment>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.5em" class="center">👨‍💻</h4>
+  <pre class="small-line" data-label-file="app.component.ts"><code class="language-javascript">
+    @Component({
+      standalone: true,
+      template:`{{ counter() }}`,
+    })
+    export class FooComponent {
+      counter$ = interval(1000);
+      counter =  toSignal(this.counter$, { initialValue: 0 });
+   }
+  </code></pre>
+  <p-fragment
+    style="--circle-sketch-height: 1.2em; position: absolute; inset-inline-start: 12em; z-index: 1; inset-block-end: 4.4em; width: 11em"
+    class="circle-sketch-highlight"
+  ></p-fragment>
+  <p-fragment><img style="z-index: 1" class="toSignalImg" alt="toSignal code with initialValue" src="img/tosignal_vscode_2.png" /> </p-fragment>
+</p-slide>

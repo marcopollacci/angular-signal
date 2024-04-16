@@ -558,13 +558,17 @@ pre[data-label-file]::after {
 }
 
 .bolognajs-logo {
-  /*  background: var(--bolognajs-color-logo);
-  mask: url(/img/bolognajs-logo.svg) no-repeat center;
-  -webkit-mask: url(/img/bolognajs-logo.svg) no-repeat center; */
   img {
     width: 4em;
     height: 4em;
     animation: shadow-logo 3s infinite;
   }
   margin: 0 auto;
+}
+
+.toSignalImg {
+  position: absolute;
+  width: 13em;
+  inset-block-start: 8.8em;
+  inset-inline-start: 3em;
 }
