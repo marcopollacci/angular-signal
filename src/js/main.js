@@ -38,18 +38,7 @@ const navButtons = [...document.querySelectorAll('.presentation-nav button')].re
   map[button.className] = button;
   return map;
 }, {});
-function toggleNavButtons(event) {
-  if (event) {
-    const hasTargetAttribute = event.target.hasAttribute('follow-fragments');
-    /* This code snippet is checking if the event target has an attribute called 'follow-fragments'. If the
-    target element does have this attribute, it then accesses the `fragment` property from the event
-    detail and calls the `scrollIntoView` method on it. This method is used to scroll the element into
-    view with a smooth animation, ensuring that the element is centered within its container and is as
-    close to the viewport as possible. */
-    if (hasTargetAttribute) {
-      event.detail.fragment.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
-    }
-  }
+function toggleNavButtons() {
   navButtons.previous.disabled = deck.atStart;
   navButtons.next.disabled = deck.atEnd;
 }
