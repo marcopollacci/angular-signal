@@ -444,7 +444,7 @@
       /* ... */
     })
     export class AppComponent {
-      UserServiceSignal = this.appService.userSignal();
+      userServiceSignal = this.appService.userSignal();
 
       constructor(private appService: AppService) {}
 
@@ -581,7 +581,7 @@
       });
     }
   </code>
-    <p-fragment><code class="language-html">&lt;app-input [first]="'Marco'" /></code> </p-fragment>
+    <p-fragment><code class="language-html">&lt;app-input first="Marco" /></code> </p-fragment>
     <p-fragment><code class="language-html">// Output 5</code> </p-fragment>
   </pre>
 </p-slide>
