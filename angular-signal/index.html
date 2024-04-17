@@ -1,0 +1,742 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Angular Signal</title>
+    <base href=".." />
+    <link href="favicon.ico" rel="shortcut icon" type="image/svg+xml" />
+    <link href="css/prism-one-light.css" rel="stylesheet" />
+    <link href="css/main.css" rel="stylesheet" />
+    <link href="css/print.css" media="print" rel="stylesheet" />
+    <link href="css/presentation.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <img alt="gdglogo" class="gdgLogo" src="img/logo_dark_QmPdj9K.svg" />
+    <p-deck> <!--slide:cover--><p-slide class="cover">
+  <h1>Guida Essenziale all'Integrazione di Angular e Signal</h1>
+  <p-note class="center">
+    <div class="bolognajs-logo">
+      <img src="img/bolognajs-logo.svg" alt="bolognajs logo" />
+    </div>
+  </p-note>
+  <p-note class="center bottom-fist-page text-cover">
+    <span>Marco Pollacci</span>
+    <span>17/04/2024 - BolognaJS</span>
+  </p-note>
+</p-slide>
+<p-slide blob-slide class="two-columns">
+  <gfy-blob
+    clearcoatroughness="0.4"
+    clearcoat="0.25"
+    color="#2a0b29"
+    envmap="img/envmap.jpg"
+    envmapintensity="0.95"
+    fixnormals=""
+    frequency="0.01"
+    metalness="0.64"
+    numberofwaves="1.47"
+    reflectivity="1"
+    roughness="0"
+    surfacepoleamount="1"
+    surfacedistort="3.2"
+    surfacefrequency="0.97"
+    surfacespeed="0.8"
+  >
+    <gfy-spotlight color="#c556c6" intensity="2.68" distance="14.47" angle="0.85" penumbra="0.45" decay="0.24" x="-4.47" y="2.4" z="0.53"></gfy-spotlight>
+    <gfy-spotlight color="#30ffe2" intensity="2.08" distance="8.73" angle="0.63" penumbra="1" decay="0" x="-1.6" y="-5.33" z="3.67"></gfy-spotlight>
+    <gfy-spotlight color="#ffffff" intensity="2.03" distance="0" angle="0.35" penumbra="1" decay="1" x="6.13" y="2.67" z="2.13"></gfy-spotlight>
+    <gfy-spotlight color="#ff4cfa" intensity="1.25" distance="7" angle="0.82" penumbra="1" decay="0.5" x="0.53" y="2.4" z="3.4"></gfy-spotlight>
+    <gfy-spotlight color="#ffffff" intensity="0.63" distance="7" angle="0.79" penumbra="1" decay="0.5" x="-3" y="-3" z="6.2"></gfy-spotlight>
+  </gfy-blob>
+  <p-note class="text-cover my-data my-presentation">
+    <h5>Hello Folks!</h5>
+    <img src="img/me.png" class="my-face" alt="me" />
+    <span>Marco Pollacci</span>
+    <span>Senior Software Developer @GELLIFY</span>
+    <div></div>
+  </p-note>
+  <img style="--image-start-size: 9em" class="alter-image-size" src="img/qr_link.svg" alt="qr" />
+</p-slide><!--/slide:cover-->
+<!--slide:part-one--><p-slide class="cover">
+  <h1>Partiamo dall’inizio…Signal?</h1>
+  <p-fragment class="center">
+    <img alt="so-confused" src="img/so-confused.gif" />
+  </p-fragment>
+</p-slide>
+<p-slide class="slide-quote center">
+  <p-note class="text-sub-section" style="font-size: 1.8vw; line-height: 3vw"
+    >“Signals are the primary means of managing state in your Solid application. They provide a way to store and update values, and are the foundation of reactivity in Solid.
+    Signals can be used to represent any kind of state in your application, such as the current user, the current page, or the current theme. This can be any value, including
+    primitive values such as strings and numbers, or complex values such as objects and arrays. ”
+  </p-note>
+  <p-note style="font-size: 1.5vw"> https://docs.solidjs.com/concepts/signals </p-note>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.7em">🙌 Signal 🙌</h4>
+  <ul class="long-list">
+    <p-fragment><li>📌 Un signal contiene sempre un valore</li></p-fragment>
+    <p-fragment><li>📌 Al suo variare, chiunque lo utilizzi è in grado di accedere al nuovo valore</li></p-fragment>
+    <p-fragment><li>📌 La reattività di signal è sincrona ed il suo valore viene propagato istantaneamente</li></p-fragment>
+    <p-fragment><li>📌 Ogni singolo signal è chiamato “producer”</li></p-fragment>
+  </ul>
+</p-slide>
+<p-slide>
+  <pre class="language-javascript" data-label-file="app.component.ts"><code class="small-line">
+    import {signal} from '@angular/core';
+    //...
+    export class AppComponent {
+      myFirstSignal = signal&lt;number> (1);
+
+      constructor() {</code>
+      <p-fragment><code>console.log('My first signal: ', this.myFirstSignal());
+      // Output: My first signal: 1</code></p-fragment>
+    <code>}
+  </code></pre>
+</p-slide>
+<p-slide class="center">
+  <h4>🤑 <span class="text-sub-section">Consumer</span> 🤑</h4>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.7em">🙌 Signal Consumer 🙌</h4>
+  <ul class="long-list">
+    <p-fragment
+      ><li>📌 Sia i template sia le funzioni che “leggono” i signal (es: <u>computed</u> ed <u>effect</u>) sono chiamati <b>“consumer”</b></li></p-fragment
+    >
+    <p-fragment
+      ><li>📌 E’ possibile “iscriversi” e reagire tramite i consumer, come ad esempio <b>effect</b></li></p-fragment
+    >
+    <p-fragment><li>📌 Quando questo accade, si crea una “connessione” tra producer <-> consumer simile alla subscription negli observable</li></p-fragment>
+    <p-fragment><li>📌 I producer inviano una notifica di aggiornamento e non direttamente il nuovo valore, che andrà così esplicitamente letto</li></p-fragment>
+    <p-fragment><li>📌 Il consumer potrà decidere di leggere il valore oppure non farlo mai.</li></p-fragment>
+    <p-fragment><li>📌 I consumer sono memoized by default.</li></p-fragment>
+  </ul>
+</p-slide>
+<p-slide class="center">
+  <h4>🧮 <span class="text-sub-section">computed()</span> 🧮</h4>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.7em">🙌 Signal Computed 🙌</h4>
+  <ul class="long-list">
+    <p-fragment><li>📌 E’ possibile creare signal definiti “computed” che dipendono dal valore di altri signal</li></p-fragment>
+    <p-fragment><li>📌 Le dipendenze sono dinamiche e possono essere incluse in statement condizionali</li></p-fragment>
+    <p-fragment><li>📌 Sono memoized e lazy evaluated</li></p-fragment>
+    <p-fragment><li>📌 L’intera computazione viene eseguita unicamente al variare dei valori dei suoi consumer e solo se esplicitamente “letti”</li></p-fragment>
+    <p-fragment><li>📌 Le funzioni computed, producendo a loro volta un signal, sono contemporaneamente producer and consumer</li></p-fragment>
+    <p-fragment
+      ><li>📌 <b>Sono read only</b></li></p-fragment
+    >
+  </ul>
+</p-slide>
+<p-slide follow-fragments>
+  <h4 style="margin-bottom: 0.5em" class="center">computed() 👨‍💻</h4>
+  <pre class="small-line language-javascript" data-label-file="app.component.ts"><code class="mid-dimension">    import {signal, computed} from '@angular/core';
+    //...
+    export class AppComponent {
+        myFirstSignal = signal&lt;number> (1);</code>
+     <p-fragment><code class="mid-dimension">runs = 0;</code></p-fragment>
+     <p-fragment><code class="mid-dimension">myFirstComputedSignal = computed(() => {
+          runs++;
+          return myFirstSignal() * 2;
+        });</code></p-fragment>
+      <code class="mid-dimension">
+      constructor() {</code>
+     <p-fragment><code class="mid-dimension">console.log('My computed signal: ', this.myFirstComputedSignal());
+        // Output: My computed signal: 2
+        console.log('Number of runs: ', this.runs);
+        // Output: Number of runs: 1 <-- 1 because the computed signal as been read once
+        </code></p-fragment>
+     <p-fragment><code class="mid-dimension">this.myFirstComputedSignal();
+        console.log('Number of runs: ', this.runs);
+        // Output: Number of runs: 1 <-- still 1 because the value of the signal hasn't changed
+        </code></p-fragment>
+     <p-fragment><code class="mid-dimension">this.myFirstSignal.set(2);
+        console.log('Number of runs: ', this.runs);
+        // Output: Number of runs: 1 <-- because the computed signal as not read again
+        </code></p-fragment>
+     <p-fragment><code class="mid-dimension">console.log('My second computed signal: ', this.myFirstComputedSignal());
+        // Output: My second computed signal: 4
+        console.log('Number of runs: ', this.runs);
+        // Output: Number of runs: 2 <-- because the computed signal as been read again
+        </code></p-fragment>
+        <code class="mid-dimension">}
+      }
+  </code></pre>
+</p-slide>
+<p-slide class="center">
+  <h4>💥 <span class="text-sub-section">effect()</span> 💥</h4>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.5em" class="center">effect() 👨‍💻</h4>
+  <pre class="small-line language-javascript" data-label-file="app.component.ts"><code class="mid-dimension">
+    @Component({...})
+    export class AppComponent {
+      readonly count = signal(0);
+      constructor() {
+        // Register a new effect.
+        effect(() => {
+          console.log(`The count is: ${this.count()})`);
+        });
+    }
+  }
+  </code></pre>
+</p-slide>
+<p-slide autoplay timing="1000">
+  <h4 style="margin-bottom: 0.5em" class="attention center">important!</h4>
+  <p-note class="center mid-dimension">Se si utilizza effect() fuori dal costruttore, va usato l' <code>Injector</code> </p-note>
+  <p-fragment style="--circle-sketch-height: 1.2em; position: absolute; inset-inline-start: 2em; z-index: 1; top: 7.15em; width: 11em" class="circle-sketch-highlight"></p-fragment>
+  <p-fragment
+    timing-start="1500"
+    style="--circle-sketch-height: 1.2em; position: absolute; inset-inline-start: 2em; z-index: 1; top: 10.15em; width: 9em"
+    class="circle-sketch-highlight"
+  ></p-fragment>
+  <pre class="small-line language-javascript" data-label-file="app.component.ts"><code class="mid-dimension">
+    @Component({...})
+    export class AppComponent {
+      readonly count = signal(0);
+      constructor(private injector: Injector) {}
+
+      myBeautifulFunction(): void {
+        effect(() => {
+          console.log(`The count is: ${this.count()})`);
+        }, {injector: this.injector});
+      }
+  }
+  </code></pre>
+</p-slide>
+<p-slide>
+  <p-note class="mid-dimension">Ma, c'è un modo per leggere un signal senza generare una dipendenza dallo stesso usando effect() e computed()? 🧐</p-note>
+  <p-fragment style="margin-top: 2em" class="center">...Si...(¬_¬)</p-fragment>
+  <p-fragment style="margin-top: 6.5em; font-size: 0.4em; text-align: end">...ma fatelo il meno possibile ৻( •̀ ᗜ •́ ৻)</p-fragment>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.5em" class="center">untracked() 👨‍💻</h4>
+  <pre class="small-line language-javascript" data-label-file="app.component.ts"><code class="mid-dimension">
+    effect(() => {
+      console.log(`User set to `${currentUser()}` and the counter is ${counter()}`);
+    });</code>
+    <p-fragment><code class="mid-dimension">
+    effect(() => {
+      console.log(`User set to `${currentUser()}` and the counter is ${untracked(counter)}`);
+    });
+    </code></p-fragment>
+  </pre>
+  <p-notes
+    >This example logs a message when either currentUser or counter changes. However, if the effect should only run when currentUser changes, then the read of counter is only
+    incidental and changes to counter shouldn't log a new message. You can prevent a signal read from being tracked by calling its getter with untracked:</p-notes
+  >
+  <p-notes> untracked is also useful when an effect needs to invoke some external code which shouldn't be treated as a dependency </p-notes>
+  <p-notes>untracked può essere usato nello stesso modo anche su computed</p-notes>
+</p-slide>
+<p-slide class="cover-subSection">
+  <h1>Observable vs Signal</h1>
+</p-slide>
+<p-slide>
+  <h5 class="text-cover center">Observable vs Signal</h5>
+  <div style="display: flex; align-items: center" class="two-columns">
+    <p-note>
+      <ul class="long-list">
+        <li>☝️Gli observable non sono obbligati ad emettere un valore alla creazione</li>
+        <li>☝️Gli observable possono emettere i valori in maniera sincrona ed asincrona</li>
+        <li>☝️Gli observable hanno il concetto di stato “complete”</li>
+      </ul>
+    </p-note>
+    <p-fragment
+      ><p-note>
+        <ul class="long-list">
+          <li>☝️Signal ha sempre almeno un valore dalla sua creazione</li>
+          <li>☝️Signal non emette nulla se non la notifica di un cambio di valore, che deve essere “pulled” dal consumer</li>
+          <li>☝️Signal non presenta il concetto di stato complete</li>
+        </ul>
+      </p-note></p-fragment
+    >
+  </div>
+</p-slide>
+<p-slide>
+  <h5 class="text-cover center">Observable vs Signal</h5>
+  <pre class="language-javascript" data-label-file=" "><code class="small-line">
+    //signal
+    const $v = computed(() => $foo() * $bar());
+
+    //rxjs
+    const v$ = combineLatest([foo$, bar$]).pipe(
+          map(([foo, bar]) => foo * bar)
+    );
+  </code></pre>
+</p-slide>
+<p-slide>
+  <h5 class="text-cover center">Observable vs Signal</h5>
+  <div class="two-columns internal-flex">
+    <pre class="small-line language-javascript" data-label-file=" "><code class="small-text">
+    //signal
+    const $v = computed(() => $foo() * $bar());
+
+    //rxjs
+    const v$ = combineLatest([foo$, bar$]).pipe(
+          map(([foo, bar]) => foo * bar)
+    );
+  </code></pre>
+    <p-note>
+      <ul class="long-list">
+        <li>✔ combineLatest non emette nulla, finché almeno uno dei due observable non ha almeno un valore</li>
+        <p-fragment>
+          <li>
+            ✔ Computed garantisce il “glitch-free”; ad ogni cambio di valore non viene emesso alcunché se non una semplice notifica, che previene l’esecuzione indesiderata del
+            codice
+          </li>
+        </p-fragment>
+      </ul>
+    </p-note>
+  </div>
+</p-slide>
+<p-slide>
+  <h5 class="text-cover center">Observable vs Signal</h5>
+  <pre class="language-javascript" data-label-file=" "><code class="small-line">
+    //signal
+    const $v = computed(() => $foo() ?? $bar() ?? 0);
+
+    //rxjs
+    const v$ = merge(foo$, bar$).pipe(
+        map ((val) => val ?? 0)
+    );
+  </code></pre>
+</p-slide>
+<p-slide>
+  <h5 class="text-cover center">Observable vs Signal</h5>
+  <div class="two-columns internal-flex">
+    <pre class="small-line language-javascript" data-label-file=" "><code class="small-text">
+      //signal
+      const $v = computed(() => $foo() ?? $bar() ?? 0);
+
+      //rxjs
+      const v$ = merge(foo$, bar$).pipe(
+          map ((val) => val ?? 0)
+      );
+  </code></pre>
+    <p-note>
+      <ul class="long-list">
+        <li>
+          ✔ La differenza in questo caso è che merge() quando uno degli observable passati è completo, continuerà a emettere valori solo dagli observable non completi e ignorerà
+          gli altri.<br />
+          Comportamento che computed non ha non avendo il concetto di “complete”
+        </li>
+      </ul>
+    </p-note>
+  </div>
+</p-slide>
+<p-slide class="center">
+  <h5>🔄 <span class="text-sub-section">Observable --> Signal</span> 🔄</h5>
+</p-slide>
+<p-slide>
+  <h5>Angular mette a disposizione una funzione specifica per convertire gli Observale esistenti in Signal:</h5>
+  <h5 class="center" style="margin-top: 0"><code>toSignal()</code></h5>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.5em" class="center">👨‍💻</h4>
+  <pre class="small-line" data-label-file="app.component.ts"><code class="language-javascript">
+    @Component({
+      standalone: true,
+      template:`{{ counter() }}`,
+    })
+    export class FooComponent { </code>
+      <p-fragment><code class="language-javascript">counter$ = interval(1000);</code></p-fragment>
+      <p-fragment><code class="language-javascript">counter  = toSignal(this.counter$);</code></p-fragment>
+   <code class="language-javascript">}
+  </code></pre>
+  <p-fragment><img class="toSignalImg" alt="toSignal code" src="img/tosignal_vscode.png" /> </p-fragment>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.5em" class="center">👨‍💻</h4>
+  <pre class="small-line" data-label-file="app.component.ts"><code class="language-javascript">
+    @Component({
+      standalone: true,
+      template:`{{ counter() }}`,
+    })
+    export class FooComponent {
+      counter$ = interval(1000);
+      counter =  toSignal(this.counter$, { initialValue: 0 });
+   }
+  </code></pre>
+  <p-fragment
+    style="--circle-sketch-height: 1.2em; position: absolute; inset-inline-start: 12em; z-index: 1; inset-block-end: 4.4em; width: 11em"
+    class="circle-sketch-highlight"
+  ></p-fragment>
+  <p-fragment><img style="z-index: 1" class="toSignalImg" alt="toSignal code with initialValue" src="img/tosignal_vscode_2.png" /> </p-fragment>
+</p-slide><!--/slide:part-one-->
+<!--slide:part-two--><p-slide class="cover-subSection">
+  <h1>Signal: esempi di utilizzo</h1>
+</p-slide>
+<p-slide class="cover">
+  <h1>Todo List</h1>
+</p-slide>
+<p-slide>
+  <pre class="language-javascript" data-label-file="app.component.ts"><code>    //..
+    export class AppComponent {
+       newTaskInputTitle = ''</code>
+      <p-fragment><code>toDoList = signal&lt;ToDoListInterface[]>([]);
+      </code></p-fragment>
+      <p-fragment><code>addTask() {
+        this.toDoList.update((oldList) => [
+          ...oldList,
+          {
+            id: this.toDoList.length + 1,
+            completed: false,
+            title: this.newTaskInputTitle,
+          },
+        ]);</code></p-fragment>
+    <code>}</code></pre>
+</p-slide>
+<p-slide>
+  <pre class="language-html small-line" data-label-file="app.component.html"><code class="mid-dimension">
+    &lt;div>
+      &lt;ul>
+        @for (task of toDoList(); track $index) {
+          &lt;li>{{ task.title }}&lt;/li>
+        } @empty {
+          &lt;li>No tasks&lt;/li>
+        }
+      &lt;/ul>
+      &lt;p>Total Task: {{ toDoList().length }}&lt;/p>
+      &lt;div>
+        &lt;p>Add new Task&lt;/p>
+        &lt;input [(ngModel)]="newTaskInput" type="text" />
+        &lt;button [disabled]="!newTaskInput" (click)="addTask()">Add_task&lt;/button>
+      &lt;/div>
+    &lt;/div>
+  </code></pre>
+</p-slide>
+<p-slide class="cover">
+  <h1>In sinergia con gli Observable</h1>
+</p-slide>
+<p-slide>
+  <p-note style="font-size: 0.65em" class="mid-dimension center">⚙️ Signal ed Observable possono essere usati insieme in modo efficiente ⚙️</p-note>
+</p-slide>
+<p-slide>
+  Ma...in che modo? 🤔
+  <p-fragment style="margin: 0.5em 0">Utilizziamoli insieme al client http di Angular!</p-fragment>
+  <p-fragment class="center"><img style="width: 5em" src="img/fallout_boy.png" alt="fallout boy" /></p-fragment>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.5em" class="center">👨‍💻</h4>
+  <pre class="small-line" data-label-file="app.service.ts"><code class="language-javascript mid-dimension">
+    //..
+    export class AppService {</code>
+   <p-fragment><code class="language-javascript mid-dimension">private _userSignal = signal&lt;UserInterface>({ /* some initial value... */ });</code></p-fragment>
+   <p-fragment><code class="language-javascript mid-dimension">userSignal = computed(() => this._userSignal);</code></p-fragment>
+   <p-fragment><code class="language-javascript mid-dimension">constructor(private http: HttpClient) {}
+      fetchUser() {
+        this.http
+          .get&lt;UserInterface>("https://...")
+          .subscribe((user) => {</code></p-fragment>
+        <p-fragment><code class="language-javascript mid-dimension">this._userSignal.set(user);
+          });
+      }
+    }
+  </code></p-fragment></pre>
+  <p-fragment style="--circle-sketch-height: 1.2em; position: absolute; inset-inline-start: 2em; z-index: 1; top: 6.1em; width: 11em" class="circle-sketch-highlight"></p-fragment>
+  <p-notes>La scelta di utilizzare computed è per evitare che venga modificato il valore dall’esterno del service</p-notes>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.5em" class="center">👨‍💻</h4>
+  <pre class="small-line" data-label-file="app.component.ts"><code class="language-javascript mid-dimension">
+    @Component({
+      /* ... */
+    })
+    export class AppComponent {
+      UserServiceSignal = this.appService.userSignal();
+
+      constructor(private appService: AppService) {}
+
+      fetchUser(): void {
+        this.appService.fetchUser();
+      }
+    }
+  </code></pre>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.5em" class="center">👨‍💻</h4>
+  <pre class="small-line" data-label-file="app.component.html.ts"><code class="language-javascript mid-dimension">
+    &lt;h1>User Profile&lt;/h1>
+    @if (userServiceSignal().id !== 0) {
+      &lt;h3>{{ userServiceSignal().name }}&lt;/h3>
+      &lt;p>{{ userServiceSignal().email }}&lt;/p>
+    } @else {
+      &lt;button (click)="fetchUser()">Fetch User&lt;/button>
+    }
+  </code></pre>
+</p-slide>
+<p-slide>
+  Altro? 🤔
+  <p-fragment style="margin: 0.5em 0">Con RxJS ed i websocket!</p-fragment>
+  <p-fragment class="center"><img style="width: 5em" src="img/fallout_boy.png" alt="fallout boy" /></p-fragment>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.5em" class="center">Service 👨‍💻</h4>
+  <p-fragment style="--circle-sketch-height: 2em; position: absolute; inset-inline-start: 2em; z-index: 1; top: 5.4em; width: 13em" class="circle-sketch-highlight"></p-fragment>
+  <p-fragment style="--circle-sketch-height: 1.2em; position: absolute; inset-inline-start: 2em; z-index: 1; top: 8.35em; width: 19em" class="circle-sketch-highlight"></p-fragment>
+  <pre class="small-line" data-label-file="chat.service.ts"><code class="language-javascript mid-dimension">
+    //..
+    export class ChatService {
+      private _messagesSignal = signal&lt;string[]>([]);
+      messagesSignal = computed(() => this._messagesSignal);
+      private socket$ = webSocket&lt;string>("ws://localhost:3000");
+      constructor() {
+        this.socket$.subscribe((message) => {
+          return this._messagesSignal.update((messages) => [...messages, message]);
+        });
+      }
+      sendMessage(msg: string) {
+        this.socket$.next(msg);
+      }
+    }
+  </code></pre>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.5em" class="center">Component 👨‍💻</h4>
+  <pre class="small-line" data-label-file="chat.component.ts"><code class="language-javascript mid-dimension">
+    //..
+    export class ChatComponent {
+      message = '';
+      messageReceived = this.chatService.messagesSignal();
+      constructor(private chatService: ChatService) {}
+
+      sendMessage() {
+        this.chatService.sendMessage(this.message);
+        this.message = '';
+      }
+    }
+
+  </code></pre>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.5em" class="center">Template 👨‍💻</h4>
+  <pre class="small-line" data-label-file="chat.component.html"><code class="language-javascript mid-dimension">
+        &lt;ul>
+          @for (message of messageReceived(); track $index) {
+          &lt;li>{{ message }}&lt;/li>
+          } @empty {
+          &lt;li>No messages&lt;/li>
+          }
+          &lt;input [(ngModel)]="message" />
+          &lt;button [disabled]="!message" (click)="sendMessage()">Send&lt;/button>
+        &lt;/ul>
+      </code></pre>
+</p-slide>
+<p-slide>
+  Altro? 🤔
+  <p-fragment style="margin: 0.5em 0">Altro!</p-fragment>
+  <p-fragment style="--from-bottom-default-translate: 100%" class="fragment-animation-from-bottom center"
+    ><img style="width: 8em" src="img/cool_meme.gif" alt="cool meme gif"
+  /></p-fragment>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.5em" class="center"><span class="text-sub-section">Ogni tipo di operazione sincrona può essere effettuata con i signal</span> 📡</h4>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.7em">🙌 Ad esempio 🙌</h4>
+  <ul class="long-list">
+    <p-fragment><li>📌 Aggiornamento Carrello e-Commerce</li></p-fragment>
+    <p-fragment><li>📌 Sistema di notifiche</li></p-fragment>
+    <p-fragment
+      ><li>📌 <i>"Sostituzione di NGRX per specifici use case con store piccoli e semplici"</i></li></p-fragment
+    >
+  </ul>
+</p-slide><!--/slide:part-two-->
+<!--slide:part-three--><p-slide class="center">
+  <h1 class="text-sub-section">Ultime novità</h1>
+</p-slide>
+<p-slide autoplay timing-fragment="1000">
+  <h5 class="text-cover center">Signal Input</h5>
+  <ul class="long-list">
+    <p-fragment timing-start="100"><li>📌 Modalità di gestione della logica di change input molto più facile</li></p-fragment>
+    <p-fragment><li>📌 Integrazione più efficace con la onPush strategy</li></p-fragment>
+    <p-fragment><li>📌 Effect sostituisce ngOnChanges</li></p-fragment>
+    <p-fragment><li>📌 Nessuna breaking change per i componenti padre</li></p-fragment>
+    <p-fragment><li>📌 E’ possibile definire un nome alternativo attraverso la proprietà alias di input</li></p-fragment>
+  </ul>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.5em" class="center">Some code 👨‍💻</h4>
+  <pre data-label-file="signal-input.ts" class="language-javascript"> <code>
+    export class InputComponent {
+      firstName = input&lt;string>();
+      // required inputs
+      lastName = input.required&lt;string>();
+    }
+   </code>
+    <p-fragment><code class="language-html">&lt;app-input lastName="Doe">&lt;/app-input> </code> </p-fragment> </pre>
+</p-slide>
+<p-slide class="center">
+  <h5 style="margin-bottom: 0.5em" class="text-sub-section">E’ possibile effettuare operazioni di trasformazione alla ricezione dell’input tramite la proprietà transform</h5>
+  🧙‍♂️
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.5em" class="center">Some code 👨‍💻</h4>
+  <pre data-label-file="signal-input.ts" class="language-javascript"> <code>
+    export class InputComponent {
+      firstName = input&lt;number, string>(0, {
+        alias: "first",
+        transform: (value) => value.length,
+      });
+    }
+  </code>
+    <p-fragment><code class="language-html">&lt;app-input [first]="'Marco'" /></code> </p-fragment>
+    <p-fragment><code class="language-html">// Output 5</code> </p-fragment>
+  </pre>
+</p-slide>
+<p-slide class="center">
+  <h5 style="margin-bottom: 0.5em" class="text-sub-section">Signal-based queries</h5>
+  🔎
+</p-slide>
+<p-slide autoplay timing-fragment="1000">
+  <h5 style="margin-bottom: 0" class="text-cover center">viewChild / viewChildren</h5>
+  <h5 style="margin-top: 0.4em" class="text-cover center">contentChild / contentChildren</h5>
+  <ul class="long-list">
+    <p-fragment timing-start="100"><li>📌 Sostituzione dei decorators con api signal-based</li></p-fragment>
+    <p-fragment><li>📌 Utilizzo di effect al posto dell’afterviewinit lifecycle</li></p-fragment>
+    <p-fragment><li>📌 contentChild / contentChildren possono essere usati con lo stesso approccio</li></p-fragment>
+  </ul>
+</p-slide>
+<p-slide>
+  <h4 style="margin-bottom: 0.5em" class="center">Some code 👨‍💻</h4>
+  <pre data-label-file="signal-queries.ts" class="language-javascript"> <code class="small-text">@Component({
+      template: `&lt;h1>SomeComponent&lt;/h1>
+        &lt;app-input lastName="Pollacci" />`,
+      imports: [InputComponent],
+    })
+    export class SomeComponent {</code>
+    <p-fragment><code class="small-text">childComponent = viewChild(InputComponent);</code></p-fragment>
+    <p-fragment><code class="small-text">constructor() {
+        effect(() => console.log(this.childComponent()!.LastName()));
+        // Output: Pollacci
+      }
+    }</code></p-fragment></pre>
+</p-slide>
+<p-slide>
+  <h5 style="margin-bottom: 0.5em" class="text-cover">Signal Model Input</h5>
+  <p class="mid-dimension">Sono un tipo speciale di input che consentono a un componente di propagare nuovi valori al componente padre</p>
+  <pre data-label-file="signal-model.ts" class="language-javascript"><code class="mid-dimension">
+    import {Component, model, input} from '@angular/core';
+    @Component({...})
+    export class CustomCheckbox {
+      // This is a model input.
+      checked = model(false);
+
+      // This is a standard input.
+      disabled = input(false);
+    }
+  </code></pre>
+  <p-notes> Sono in tutto e per tutto uguali agli input (possono essere usati in funzioni computed ed effect) </p-notes>
+</p-slide>
+<p-slide>
+  <h5 style="margin-bottom: 0.5em" class="text-cover">Signal Model Input</h5>
+  <p class="mid-dimension">Two way binding</p>
+  <pre data-label-file="signal-model.ts" class="language-javascript"><code class="mid-dimension">
+    @Component({
+      // ...
+      // `checked` is a model input.
+      // The parenthesis-inside-square-brackets syntax creates a two-way binding
+      template: '&lt;custom-checkbox [(checked)]="isAdmin" />',
+    })
+    export class UserProfile {
+      protected isAdmin = false;
+    }
+  </code></pre>
+</p-slide>
+<p-slide>
+  <h5 style="margin-bottom: 0.5em" class="text-cover">Signal Model Input</h5>
+  <p class="mid-dimension">Angular crea automaticamente un output che viene usato come suffisso "Change"</p>
+  <pre data-label-file="signal-model.ts" class="language-javascript"><code class="mid-dimension">
+    @Directive({...})
+    export class CustomCheckbox {
+      // This automatically creates an output named "checkedChange".
+      // Can be subscribed to using `(checkedChange)="handler()"` in the template.
+      checked = model(false);
+    }
+  </code></pre>
+</p-slide>
+<p-slide>
+  <h5 class="text-cover center">❗ Principali differenze ❗</h5>
+  <ul class="long-list">
+    <p-fragment><li>📌 model() definisce sia un input che un output</li></p-fragment>
+    <p-fragment><li>📌 Il nome dell'output è sempre il nome dell'input con suffisso Change per supportare i collegamenti bidirezionali</li></p-fragment>
+    <p-fragment
+      ><li>📌 ModelSignal è un WritableSignal, il che significa che il suo valore può essere modificato da qualsiasi punto utilizzando i metodi set e update.</li></p-fragment
+    >
+    <p-fragment><li>📌 I ModelSignal non supportano le trasformazioni degli input mentre i SignalInput sì</li></p-fragment>
+  </ul>
+</p-slide><!--/slide:part-three-->
+<!--slide:thanks--><p-slide>
+  <img alt="thatsall" src="img/thatsall.gif" style="--image-start-size: 100%" class="alter-image-size" />
+</p-slide>
+<p-slide class="center">
+  <h2 style="margin-bottom: 0.3em">You can see this slide on</h2>
+  <p-note style="margin-bottom: 0.5em">
+    <img src="img/qrcode_marcopollacci.github.io.png" alt="qrcode" class="alter-image-size" />
+  </p-note>
+  <p-note><a href="https://marcopollacci.github.io/angular-signal/">https://marcopollacci.github.io/angular-signal/</a></p-note>
+</p-slide>
+<p-slide blob-slide class="two-columns">
+  <gfy-blob
+    clearcoatroughness="0.4"
+    clearcoat="0.23"
+    color="#2a0b29"
+    envmap="img/envmap.jpg"
+    envmapintensity="0.95"
+    fixnormals=""
+    frequency="0.01"
+    metalness="0.64"
+    numberofwaves="1.47"
+    reflectivity="1"
+    roughness="0"
+    surfacepoleamount="1"
+    surfacedistort="3.2"
+    surfacefrequency="0.97"
+    surfacespeed="0.8"
+  >
+    <gfy-spotlight color="#c556c6" intensity="2.68" distance="14.47" angle="0.85" penumbra="0.45" decay="0.24" x="-4.47" y="2.4" z="0.53"></gfy-spotlight>
+    <gfy-spotlight color="#30ffe2" intensity="2.08" distance="8.73" angle="0.63" penumbra="1" decay="0" x="-1.6" y="-5.33" z="3.67"></gfy-spotlight>
+    <gfy-spotlight color="#ffffff" intensity="2.03" distance="0" angle="0.35" penumbra="1" decay="1" x="6.13" y="2.67" z="2.13"></gfy-spotlight>
+    <gfy-spotlight color="#ff4cfa" intensity="1.25" distance="7" angle="0.82" penumbra="1" decay="0.5" x="0.53" y="2.4" z="3.4"></gfy-spotlight>
+    <gfy-spotlight color="#ffffff" intensity="0.63" distance="7" angle="0.79" penumbra="1" decay="0.5" x="-3" y="-3" z="6.2"></gfy-spotlight>
+  </gfy-blob>
+  <p-note class="text-cover my-data my-presentation">
+    <h5>Thank you again!</h5>
+    <img src="img/me.png" class="my-face" alt="me" />
+    <span>Marco Pollacci</span>
+    <span>Senior Software Developer @GELLIFY</span>
+    <div></div>
+  </p-note>
+  <img style="--image-start-size: 9em" class="alter-image-size" src="img/qr_link.svg" alt="qr" />
+</p-slide><!--/slide:thanks-->
+</p-deck>
+    <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" class="presentation-progress" role="progressbar" title="Presentation progress"></div>
+    <div class="presentation-toolbar" role="toolbar">
+      <button aria-label="Toggle speaker mode (Alt-M)" class="toggle-mode" title="Toggle speaker mode" type="button">
+        <svg viewBox="0 0 1 1">
+          <path d="M.05 .5h.6v-.45h-.6v.9h.6v-.45M.75 .05h.25M.75 .2h.25M.75 .35h.25" fill="none" stroke="currentColor" stroke-width="0.1" />
+        </svg>
+      </button>
+      <button aria-label="Toggle fullscreen mode" class="fullscreen" title="Toggle fullscreen mode" type="button">
+        <svg viewBox="0 0 1 1">
+          <g fill="none" stroke="currentColor" stroke-width="0.1">
+            <path d="M.05 .3v-.25h.25M.7 .05h.25v.25M.95 .7v.25h-.25M.3 .95h-.25v-.25" />
+            <path d="M.05 .3h.25v-.25M.7 .05v.25h.25M.95 .7h-.25v.25M.3 .95v-.25h-.25" />
+          </g>
+        </svg>
+      </button>
+    </div>
+    <nav class="presentation-nav">
+      <button aria-label="Go backward" class="previous" title="Go backward" type="button"></button>
+      <button aria-label="Go forward" class="next" title="Go forward" type="button"></button>
+    </nav>
+    <script src="js/main.js" type="module"></script>
+    <script src="js/presentation.js" type="module"></script>
+    <script src="js/deck.js" type="module"></script>
+    <script defer src="vendor/prismjs/prism.js"></script>
+    <script defer src="vendor/prismjs/components/prism-typescript.js"></script>
+    <script defer src="vendor/prismjs/components/prism-scss.js"></script>
+    <script defer type="module" src="https://cdn-pollacci.pages.dev/blob.js"></script>
+  </body>
+</html>
